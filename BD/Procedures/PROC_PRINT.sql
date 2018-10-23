@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE main.PRINT(string1 VARCHAR) IS
+
+BEGIN
+    DBMS_OUTPUT.put_line(string1);
+END;
+
