@@ -79,6 +79,6 @@ CREATE TABLE main.client
 CREATE TABLE main.employe
 (
     profileId INT NOT NULL REFERENCES main.profile(profileId) PRIMARY KEY,
-    matricule   CHAR(8) UNIQUE NOT NULL,
-    CHECK (LENGTH(matricule) = 8 AND LENGTH(TRIM(TRANSLATE(matricule, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-.0123456789', ' '))) < 0)
+    matricule INT UNIQUE NOT NULL,
+    CHECK (matricule >= 0 AND matricule <= 99999999)
 );
