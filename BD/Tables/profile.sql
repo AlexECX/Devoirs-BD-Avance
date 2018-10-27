@@ -1,11 +1,3 @@
-DROP TABLE main.abonnement;
-DROP TABLE main.client;
-DROP TABLE main.carte_credit;
-DROP TABLE main.employe;
-DROP TABLE main.profile;
-DROP TABLE main.adresse;
-DROP TABLE main.forfait;
-
 
 -- Create the table in the specified schema
 DROP SEQUENCE main.adresse_seq;
@@ -39,7 +31,7 @@ CREATE TABLE main.profile
 -- Create the table in the specified schema
 CREATE TABLE main.forfait
 (
-    nom     CHAR(12) NOT NULL PRIMARY KEY,
+    nom     CHAR(20) NOT NULL PRIMARY KEY,
     cout    INT NOT NULL,
     location_max    INT NOT NULL,
     duree_max    INT NOT NULL
@@ -49,7 +41,7 @@ CREATE TABLE main.forfait
 -- Create the table in the specified schema
 CREATE TABLE main.abonnement
 (
-    forfait_nom CHAR(12) REFERENCES main.forfait(nom),
+    forfait_nom CHAR(20) REFERENCES main.forfait(nom),
     profileId INT REFERENCES main.profile(profileId),
     PRIMARY KEY(forfait_nom, profileId)
 );
@@ -79,6 +71,6 @@ CREATE TABLE main.client
 CREATE TABLE main.employe
 (
     profileId INT NOT NULL REFERENCES main.profile(profileId) PRIMARY KEY,
-    matricule INT UNIQUE NOT NULL,
-    CHECK (matricule >= 0 AND matricule <= 99999999)
+    matricule   CHAR(8) UNIQUE NOT NULL,
+    CHECK (LENGTH(matricule) = 8 AND LENGTH(TRIM(TRANSLATE(matricule, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-.0123456789', ' '))) < 0)
 );

@@ -1,15 +1,3 @@
-DROP TABLE main.film_pays_production;
-DROP TABLE main.pays_production;
-DROP TABLE main.film_genre;
-DROP TABLE main.genre;
-DROP TABLE main.film_acteur;
-DROP TABLE main.acteur;
-DROP TABLE main.film_scenariste;
-DROP TABLE main.scenariste;
-DROP TABLE main.film;
-DROP TABLE main.realisateur;
-DROP TABLE main.personnel_film;
-
 
 CREATE TABLE main.personnel_film
 (
@@ -37,7 +25,8 @@ CREATE TABLE main.film
     duree         INT NOT NULL,
     resume  	CHAR(255) NOT NULL,
     inventaire    INT NOT NULL,
-    realisateur_noSequence INT UNIQUE NOT NULL REFERENCES main.realisateur(noSequence)
+    realisateur_noSequence INT UNIQUE NOT NULL REFERENCES main.realisateur(noSequence),
+	CHECK(inventaire >= 0)
 );
 
 
@@ -94,7 +83,15 @@ CREATE TABLE main.film_genre
 );
 
 
-
+CREATE TABLE main.pret_courant
+(
+	id_pret   INT NOT NULL PRIMARY KEY, -- primary key column
+    profileId    INT REFERENCES main.profile(profileId), 
+	num_code    INT REFERENCES main.film(num_code),
+    date_pret      DATE NOT NULL,
+    date_retour       DATE NOT NULL,
+    etat_pret         VARCHAR(10) NOT NULL
+);
 
 
 

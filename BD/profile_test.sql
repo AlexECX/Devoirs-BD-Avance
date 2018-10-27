@@ -1,12 +1,24 @@
+create or replace 
+procedure main.test_profile
+is
+
+    ligne   main.profile%rowtype;
+
 begin
-main.create_profile('alex3@', 'alex', 'cox', 'test_Tel', CURRENT_DATE, 'mdp154444444');
+    ligne := main.create_profile('alex3@', 'alex', 'cox', 'test_Tel', to_date('03/06/1993', 'dd/mm/yyyy'), 'mdp154444444');
+end test_profile;
+/
+
+begin
+main.test_profile();
+main.create_abonnement('Intermediaire', 1);
 end;
+/
 
+select * from main.abonnement;
+select * from main.profile;
 
+delete from main.abonnement;
+delete from main.profile;
+drop procedure main.test_profile;
 
--- INSERT INTO main.profile(profileId, courriel, prenom, nom, tel, date_naissance, mot_de_passe) VALUES (2, 'alex@', 'alex', 'cox', 'test_Tel', to_date('2000/06/03', 'yyyy/mm/dd'), 'mdp154444444');
--- INSERT INTO main.profile(profileId, courriel, prenom, nom, tel, date_naissance, mot_de_passe) VALUES (2, 'alex1@', 'alex', 'cox', 'test_Tel', to_date('2000/06/03', 'yyyy/mm/dd'), 'mdp154444444');
--- INSERT INTO main.profile(profileId, courriel, prenom, nom, tel, date_naissance, mot_de_passe) VALUES (2, 'alex3@', 'alex', 'cox', 'test_Tel', to_date('2000/06/03', 'yyyy/mm/dd'), 'mdp154444444');
-
--- SELECT * FROM main.profile;
--- DELETE FROM main.profile;
