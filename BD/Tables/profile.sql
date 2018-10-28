@@ -11,6 +11,15 @@ CREATE TABLE main.adresse
 );
 
 -- Create the table in the specified schema
+CREATE TABLE main.forfait
+(
+    nom     CHAR(20) NOT NULL PRIMARY KEY,
+    cout    INT NOT NULL,
+    location_max    INT NOT NULL,
+    duree_max    INT NOT NULL
+);
+
+-- Create the table in the specified schema
 CREATE TABLE main.profile
 (
     id   INT NOT NULL PRIMARY KEY,
@@ -20,27 +29,10 @@ CREATE TABLE main.profile
     tel         VARCHAR(15) NOT NULL,
     date_naissance  DATE NOT NULL,
     mot_de_passe    VARCHAR(18) NOT NULL,
-    adresse_id INT REFERENCES main.adresse(id)
+    adresse_id INT REFERENCES main.adresse(id),
+    forfait_nom CHAR(20) REFERENCES main.forfait(nom)
 );
 
-
--- Create the table in the specified schema
-CREATE TABLE main.forfait
-(
-    nom     CHAR(20) NOT NULL PRIMARY KEY,
-    cout    INT NOT NULL,
-    location_max    INT NOT NULL,
-    duree_max    INT NOT NULL
-);
-
-
--- Create the table in the specified schema
-CREATE TABLE main.abonnement
-(
-    forfait_nom CHAR(20) REFERENCES main.forfait(nom),
-    profile_id INT REFERENCES main.profile(id),
-    PRIMARY KEY(forfait_nom, profile_id)
-);
 
 
 -- Create the table in the specified schema
@@ -58,15 +50,20 @@ CREATE TABLE main.carte_credit
 -- Create the table in the specified schema
 CREATE TABLE main.client
 (
-    id INT NOT NULL REFERENCES main.profile(id) PRIMARY KEY,
-    carte_credit_numero   CHAR(20) NOT NULL REFERENCES main.carte_credit(numero)
+    id INT NOT NULL PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES main.profile(id) 
+        ON DELETE CASCADE,
+    carte_credit_numero   CHAR(20) REFERENCES main.carte_credit(numero)
+        
 );
 
 
 -- Create the table in the specified schema
 CREATE TABLE main.employe
 (
-    id INT NOT NULL REFERENCES main.profile(id) PRIMARY KEY,
+    id INT NOT NULL PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES main.profile(id) 
+        ON DELETE CASCADE,
     matricule   CHAR(8) UNIQUE NOT NULL,
     CHECK (LENGTH(matricule) = 8 AND LENGTH(TRIM(TRANSLATE(matricule, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-.0123456789', ' '))) < 0)
 );

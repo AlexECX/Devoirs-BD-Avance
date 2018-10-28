@@ -1,6 +1,5 @@
 -- reset
 DROP TABLE main.pret_courant;
-DROP TABLE main.abonnement;
 DROP TABLE main.client;
 DROP TABLE main.carte_credit;
 DROP TABLE main.employe;
@@ -30,10 +29,14 @@ DROP TABLE main.personnel_film;
 -- procedures
 @Procedures/PROC_create_profile.sql
 @Procedures/PROC_create_abonnement.sql
+@Procedures/PROC_create_pret.sql
+@Procedures/PROC_create_film.sql
 -- functions
 @Functions/FUNC_is_alphanum.sql
 @Functions/FUNC_fcreate_profile.sql
-@Functions/FUNC_fcreate_abonnement.sql
+@Functions/FUNC_fcreate_pret.sql
+@Functions/FUNC_fcreate_film.sql
+-- ##########@Functions/FUNC_fcreate_abonnement.sql
 -- triggers
 @Triggers/BIUprofil_is_adult.sql
 @Triggers/BIUmdp_5alphanum.sql

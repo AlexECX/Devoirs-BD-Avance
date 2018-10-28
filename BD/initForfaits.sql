@@ -1,3 +1,5 @@
+
+
 insert into main.forfait (nom, cout, location_max, duree_max)
 values ('Debutant', 10, 1, 7);
 

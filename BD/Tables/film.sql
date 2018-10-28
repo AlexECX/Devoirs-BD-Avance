@@ -25,7 +25,7 @@ CREATE TABLE main.film
     duree         INT NOT NULL,
     resume  	CHAR(255) NOT NULL,
     inventaire    INT NOT NULL,
-    realisateur_id INT UNIQUE NOT NULL REFERENCES main.realisateur(id),
+    realisateur_id INT UNIQUE REFERENCES main.realisateur(id),
 	CHECK(inventaire >= 0)
 );
 

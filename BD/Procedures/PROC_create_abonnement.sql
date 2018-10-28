@@ -1,10 +1,10 @@
 CREATE OR REPLACE procedure main.create_abonnement(
   nom main.forfait.nom%TYPE,
-  id  main.profile.id%TYPE
-)  is
-
-    ligne   main.abonnement%ROWTYPE;
+  p_id  main.profile.id%TYPE
+) is
 
 begin
-    ligne := main.fcreate_abonnement(nom, id);
+    update main.profile
+    set main.profile.forfait_nom=nom
+    where main.profile.id = p_id;
 end;
