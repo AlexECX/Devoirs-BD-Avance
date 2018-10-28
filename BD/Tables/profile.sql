@@ -1,7 +1,5 @@
 
 -- Create the table in the specified schema
-DROP SEQUENCE main.adresse_seq;
-CREATE SEQUENCE main.adresse_seq START WITH 1;
 CREATE TABLE main.adresse
 (
     ID_adresse  INT NOT NULL PRIMARY KEY,
@@ -13,8 +11,6 @@ CREATE TABLE main.adresse
 );
 
 -- Create the table in the specified schema
-DROP SEQUENCE main.profile_seq;
-CREATE SEQUENCE main.profile_seq START WITH 1;
 CREATE TABLE main.profile
 (
     profileId   INT NOT NULL PRIMARY KEY,
