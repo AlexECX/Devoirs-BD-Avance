@@ -11,5 +11,5 @@ procedure main.create_profile(
     ligne   main.profile%ROWTYPE;
 
 begin
-    ligne := main.create_profile(courriel, prenom, nom, tel, date_naissance, mot_de_passe);
+    ligne := main.fcreate_profile(courriel, prenom, nom, tel, date_naissance, mot_de_passe);
 end;

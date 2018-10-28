@@ -24,18 +24,20 @@ DROP TABLE main.personnel_film;
 @Tables/profile.sql
 @Tables/film.sql
 -- table objects
-@Tables/OBJECT_on_line.sql
+
 -- auto id increments on tables
 @Tables/AUTO_increments.sql
 -- procedures
-@Procedures/PROC_PRINT.sql
 @Procedures/PROC_create_profile.sql
 @Procedures/PROC_create_abonnement.sql
 -- functions
 @Functions/FUNC_is_alphanum.sql
+@Functions/FUNC_fcreate_profile.sql
+@Functions/FUNC_fcreate_abonnement.sql
 -- triggers
 @Triggers/BIUprofil_is_adult.sql
 @Triggers/BIUmdp_5alphanum.sql
+@Triggers/BIUlocationMax.sql
 
 -- initialise les forfaits
 @initForfaits.sql
