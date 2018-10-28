@@ -1,6 +1,6 @@
 CREATE OR REPLACE procedure main.create_abonnement(
   nom main.forfait.nom%TYPE,
-  id  main.profile.profileId%TYPE
+  id  main.profile.id%TYPE
 )  is
 
     ligne   main.abonnement%ROWTYPE;

@@ -19,6 +19,6 @@ begin
 
     SELECT * INTO ligne 
     FROM main.profile
-    WHERE profileId = id; 
+    WHERE main.profile.id = id; 
     RETURN ligne;
 end;

@@ -7,7 +7,7 @@ FOR EACH ROW
 
 BEGIN
   SELECT main.adresse_seq.NEXTVAL
-  INTO   :new.ID_adresse
+  INTO   :new.id
   FROM   dual;
 END;
 
@@ -21,7 +21,7 @@ FOR EACH ROW
 
 BEGIN
   SELECT main.profile_seq.NEXTVAL
-  INTO   :new.profileId
+  INTO   :new.id
   FROM   dual;
 END;
 
@@ -35,7 +35,7 @@ FOR EACH ROW
 
 BEGIN
   SELECT main.pret_courant_seq.NEXTVAL
-  INTO   :new.id_pret
+  INTO   :new.id
   FROM   dual;
 END;
 
@@ -49,21 +49,21 @@ FOR EACH ROW
 
 BEGIN
   SELECT main.film_seq.NEXTVAL
-  INTO   :new.num_code
+  INTO   :new.id
   FROM   dual;
 END;
 
 /
 DROP SEQUENCE main.personnel_film_seq;
-CREATE SEQUENCE main.film_seq START WITH 1;
+CREATE SEQUENCE main.personnel_film_seq START WITH 1;
 
-CREATE OR REPLACE TRIGGER main.AUTO_film
+CREATE OR REPLACE TRIGGER main.AUTO_personnel_film
 BEFORE INSERT ON main.personnel_film 
 FOR EACH ROW
 
 BEGIN
   SELECT main.personnel_film_seq.NEXTVAL
-  INTO   :new.noSequence
+  INTO   :new.id
   FROM   dual;
 END;
 

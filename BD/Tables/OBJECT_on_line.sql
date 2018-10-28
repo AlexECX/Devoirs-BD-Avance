@@ -1,7 +1,7 @@
 
 CREATE OR REPLACE TYPE main.profile_obj AS OBJECT
 (
-    profileId   INT,
+    id   INT,
     courriel    VARCHAR(30),
     prenom      CHAR(20),
     nom         CHAR(20),
