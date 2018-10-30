@@ -1,7 +1,8 @@
 CREATE OR REPLACE procedure main.create_membre(
-  nom main.membre.forfait_nom%TYPE,
   id  main.membre.id%TYPE,
-  adresse_id  main.membre.adresse_id%TYPE
+  adresse_id  main.membre.adresse_id%TYPE,
+  nom main.membre.forfait_nom%TYPE
+  
 ) is
 
 begin

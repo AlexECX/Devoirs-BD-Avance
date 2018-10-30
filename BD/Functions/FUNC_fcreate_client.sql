@@ -18,7 +18,8 @@ begin
     FROM main.client
     WHERE main.client.id = profile_id;
 
-    insert into main.carte_credit (numero, type_carte, expiration, CVV)
-    values (numero, type_carte, expiration, CVV);
+
+    insert into main.carte_credit (numero, type_carte, expiration, CVV, client_id)
+    values (numero, type_carte, expiration, CVV, profile_id);
     RETURN ligne;
 end;

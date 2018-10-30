@@ -47,7 +47,7 @@ CREATE TABLE main.membre
 CREATE TABLE main.client
 (
     id INT NOT NULL PRIMARY KEY,
-    FOREIGN KEY (id) REFERENCES main.membre(id) 
+    FOREIGN KEY (id) REFERENCES main.profile(id) 
         ON DELETE CASCADE
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE main.carte_credit
 CREATE TABLE main.employe
 (
     id INT NOT NULL PRIMARY KEY,
-    FOREIGN KEY (id) REFERENCES main.membre(id) 
+    FOREIGN KEY (id) REFERENCES main.profile(id) 
         ON DELETE CASCADE,
     matricule   CHAR(8) UNIQUE NOT NULL,
     CHECK (LENGTH(matricule) = 8 AND LENGTH(TRIM(TRANSLATE(matricule, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-.0123456789', ' '))) < 0)
