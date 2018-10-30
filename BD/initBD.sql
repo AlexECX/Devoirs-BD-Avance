@@ -29,12 +29,14 @@ DROP TABLE main.personnel_film;
 @Tables/AUTO_increments.sql
 -- procedures
 @Procedures/PROC_create_profile.sql
+@Procedures/PROC_create_client.sql
 @Procedures/PROC_create_membre.sql
 @Procedures/PROC_create_pret.sql
 @Procedures/PROC_create_film.sql
 -- functions
 @Functions/FUNC_is_alphanum.sql
 @Functions/FUNC_fcreate_profile.sql
+@Functions/FUNC_fcreate_client.sql
 @Functions/FUNC_fcreate_pret.sql
 @Functions/FUNC_fcreate_film.sql
 -- triggers
