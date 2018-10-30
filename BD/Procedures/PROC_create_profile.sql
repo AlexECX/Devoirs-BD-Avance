@@ -5,12 +5,11 @@ procedure main.create_profile(
   nom       main.profile.nom%TYPE,
   tel       main.profile.tel%TYPE,
   date_naissance    main.profile.date_naissance%TYPE,
-  mot_de_passe  main.profile.mot_de_passe%TYPE,
-  forfait   main.profile.forfait_nom%TYPE
+  mot_de_passe  main.profile.mot_de_passe%TYPE
 ) is
 
     ligne   main.profile%ROWTYPE;
 
 begin
-    ligne := main.fcreate_profile(courriel, prenom, nom, tel, date_naissance, mot_de_passe, forfait);
+    ligne := main.fcreate_profile(courriel, prenom, nom, tel, date_naissance, mot_de_passe);
 end;

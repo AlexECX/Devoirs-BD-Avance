@@ -7,7 +7,8 @@ CREATE TABLE main.adresse
     rue         CHAR(30) NOT NULL,
     ville       CHAR(30) NOT NULL,
     province    CHAR(30) NOT NULL,
-    code_postal CHAR(6) NOT NULL
+    code_postal CHAR(6) NOT NULL,
+    CHECK (LENGTH(code_postal) = 6)
 );
 
 -- Create the table in the specified schema
@@ -28,12 +29,27 @@ CREATE TABLE main.profile
     nom         CHAR(20) NOT NULL,
     tel         VARCHAR(15) NOT NULL,
     date_naissance  DATE NOT NULL,
-    mot_de_passe    VARCHAR(18) NOT NULL,
+    mot_de_passe    VARCHAR(18) NOT NULL
+);
+
+
+CREATE TABLE main.membre
+(
+    id INT NOT NULL PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES main.profile(id) 
+        ON DELETE CASCADE,
     adresse_id INT REFERENCES main.adresse(id),
     forfait_nom CHAR(20) REFERENCES main.forfait(nom)
 );
 
 
+-- Create the table in the specified schema
+CREATE TABLE main.client
+(
+    id INT NOT NULL PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES main.membre(id) 
+        ON DELETE CASCADE
+);
 
 -- Create the table in the specified schema
 CREATE TABLE main.carte_credit
@@ -42,19 +58,11 @@ CREATE TABLE main.carte_credit
     type_carte CHAR(25) NOT NULL,
     expiration   DATE NOT NULL,
     CVV INT NOT NULL,
-    CHECK (LENGTH(numero) = 16),
-    CHECK (LENGTH(TRIM(TRANSLATE(numero, ' +-.0123456789', ' '))) < 0),
-    CHECK (LENGTH(CVV) = 3)
-);
-
--- Create the table in the specified schema
-CREATE TABLE main.client
-(
-    id INT NOT NULL PRIMARY KEY,
-    FOREIGN KEY (id) REFERENCES main.profile(id) 
+    client_id   INT REFERENCES main.client(id)
         ON DELETE CASCADE,
-    carte_credit_numero   CHAR(20) REFERENCES main.carte_credit(numero)
-        
+    CHECK (LENGTH(numero) = 16),
+    CHECK (LENGTH(TRIM(TRANSLATE(numero, '0123456789', ' '))) < 0),
+    CHECK (CVV > 0 AND CVV < 999)
 );
 
 
@@ -62,7 +70,7 @@ CREATE TABLE main.client
 CREATE TABLE main.employe
 (
     id INT NOT NULL PRIMARY KEY,
-    FOREIGN KEY (id) REFERENCES main.profile(id) 
+    FOREIGN KEY (id) REFERENCES main.membre(id) 
         ON DELETE CASCADE,
     matricule   CHAR(8) UNIQUE NOT NULL,
     CHECK (LENGTH(matricule) = 8 AND LENGTH(TRIM(TRANSLATE(matricule, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-.0123456789', ' '))) < 0)

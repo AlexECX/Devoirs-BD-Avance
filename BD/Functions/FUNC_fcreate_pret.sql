@@ -11,8 +11,8 @@ function main.fcreate_pret(
 begin
     select main.forfait.duree_max
     into duree_max
-    from main.profile, main.forfait
-    where profile.id = profile_id AND profile.forfait_nom = forfait.nom;
+    from main.membre, main.forfait
+    where membre.id = profile_id AND membre.forfait_nom = forfait.nom;
     
     INSERT INTO main.pret_courant(profile_id, film_id, date_pret, date_retour, etat_pret) 
     VALUES (profile_id, film_id, CURRENT_DATE, CURRENT_DATE + duree_max, 'prete');

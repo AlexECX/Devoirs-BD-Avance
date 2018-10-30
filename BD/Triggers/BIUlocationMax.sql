@@ -13,8 +13,8 @@ BEGIN
 
     SELECT location_max
     INTO max_of
-    FROM forfait, profile
-    WHERE forfait.nom = profile.forfait_nom;
+    FROM forfait, membre
+    WHERE forfait.nom = membre.forfait_nom;
     
     IF (count_of >= max_of) THEN	
         RAISE_APPLICATION_ERROR( 
