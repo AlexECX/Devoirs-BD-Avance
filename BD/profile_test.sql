@@ -4,8 +4,9 @@ declare
     line_profile main.profile%ROWTYPE;
     line_film main.film%ROWTYPE;
 begin
-    line_profile := main.fcreate_profile('alex3@', 'alex', 'cox', 'test_Tel', to_date('03/06/1993', 'dd/mm/yyyy'), 'mdp154444444', 'Debutant');
-    line_film := main.fcreate_film('titre', 'langue_originale', CURRENT_DATE, 60, 'resume', 3);
+    line_profile := main.fcreate_profile('alex3@', 'alex', 'cox', 'test_Tel', to_date('03/06/1993', 'dd/mm/yyyy'), 'mdp154444444', 'Avance');
+    line_film := main.fcreate_film('titre', 'langue_originale', CURRENT_DATE, 60, 'resume', 2);
+    main.create_pret(line_profile.id, line_film.id);
     main.create_pret(line_profile.id, line_film.id);
     main.create_pret(line_profile.id, line_film.id);
 end;

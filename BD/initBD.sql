@@ -1,6 +1,7 @@
 -- reset
 DROP TABLE main.pret_courant;
 DROP TABLE main.client;
+DROP TABLE main.abonnement;
 DROP TABLE main.carte_credit;
 DROP TABLE main.employe;
 DROP TABLE main.profile;
@@ -41,6 +42,8 @@ DROP TABLE main.personnel_film;
 @Triggers/BIUprofil_is_adult.sql
 @Triggers/BIUmdp_5alphanum.sql
 @Triggers/BIUlocationMax.sql
+@Triggers/BIUetat_pret.sql
+@Triggers/BDfilm.sql
 
 -- initialise les forfaits
 @initForfaits.sql
