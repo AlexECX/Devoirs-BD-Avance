@@ -75,5 +75,5 @@ CREATE TABLE main.employe
     FOREIGN KEY (id) REFERENCES main.profile(id) 
         ON DELETE CASCADE,
     matricule   CHAR(8) UNIQUE NOT NULL,
-    CHECK (LENGTH(matricule) = 8 AND LENGTH(TRIM(TRANSLATE(matricule, 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-.0123456789', ' '))) < 0)
+    CHECK (LENGTH(matricule) = 8 AND LENGTH(TRIM(TRANSLATE(matricule, '0123456789', ' '))) < 0)
 );
