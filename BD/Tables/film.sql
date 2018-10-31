@@ -76,8 +76,8 @@ CREATE TABLE main.pays_production(
 
 CREATE TABLE main.film_pays_production
 (
-    film_id INT REFERENCES main.film(id),
     pays_production_nom CHAR(10) REFERENCES main.pays_production(nom),
+    film_id INT REFERENCES main.film(id),
     PRIMARY KEY(film_id, pays_production_nom)
 );
 

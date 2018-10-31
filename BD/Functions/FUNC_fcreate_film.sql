@@ -6,7 +6,6 @@ function main.fcreate_film(
     duree               main.film.duree%TYPE,
     resume  	        main.film.resume%TYPE,           
     inventaire          main.film.inventaire%TYPE
---  realisateur_id      main.film.realisateur_id%TYPE
 ) RETURN main.film%ROWTYPE is
 
     ligne   main.film%ROWTYPE;

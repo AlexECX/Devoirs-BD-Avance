@@ -60,6 +60,4 @@ DROP TABLE main.personnel_film;
 @Triggers/BIUetat_pret.sql
 @Triggers/BDfilm.sql
 
--- initialise les forfaits
-@initForfaits.sql
 
