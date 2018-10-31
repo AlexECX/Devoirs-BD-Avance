@@ -33,6 +33,9 @@ DROP TABLE main.personnel_film;
 
 -- functions
 @Functions/FUNC_is_alphanum.sql
+@Functions/FUNC_fcreate_acteur.sql
+@Functions/FUNC_fcreate_realisateur.sql
+@Functions/FUNC_fcreate_scenariste.sql
 @Functions/FUNC_fcreate_profile.sql
 @Functions/FUNC_fcreate_client.sql
 @Functions/FUNC_fcreate_pret.sql
@@ -45,6 +48,9 @@ DROP TABLE main.personnel_film;
 @Procedures/PROC_create_membre.sql
 @Procedures/PROC_create_pret.sql
 @Procedures/PROC_create_film.sql
+@Procedures/PROC_create_acteur.sql
+@Procedures/PROC_create_realisateur.sql
+@Procedures/PROC_create_scenariste.sql
 @Procedures/PROC_create_adresse.sql
 
 -- triggers

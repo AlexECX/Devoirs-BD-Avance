@@ -10,16 +10,16 @@ function main.fcreate_film(
 ) RETURN main.film%ROWTYPE is
 
     ligne   main.film%ROWTYPE;
-    id      INT;
+    f_id      INT;
 
 begin
     INSERT INTO main.film(titre, langue_originale, annee_sortie, duree, resume, inventaire) 
     VALUES (titre, langue_originale, annee_sortie, duree, resume, inventaire);
 
-    id := main.film_seq.CURRVAL;
+    f_id := main.film_seq.CURRVAL;
 
     SELECT * INTO ligne 
     FROM main.film
-    WHERE main.film.id = id; 
+    WHERE main.film.id = f_id; 
     RETURN ligne;
 end;

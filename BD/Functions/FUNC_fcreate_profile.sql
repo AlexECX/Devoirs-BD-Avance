@@ -9,16 +9,16 @@ function main.fcreate_profile(
 ) RETURN main.profile%ROWTYPE is
 
     ligne   main.profile%ROWTYPE;
-    id      INT;
+    f_id      INT;
 
 begin
     INSERT INTO main.profile(courriel, prenom, nom, tel, date_naissance, mot_de_passe) 
     VALUES (courriel, prenom, nom, tel, date_naissance, mot_de_passe);
 
-    id := main.profile_seq.CURRVAL;
+    f_id := main.profile_seq.CURRVAL;
 
     SELECT * INTO ligne 
     FROM main.profile
-    WHERE main.profile.id = id; 
+    WHERE main.profile.id = f_id; 
     RETURN ligne;
 end;
