@@ -12,12 +12,13 @@ DROP TABLE main.film_pays_production;
 DROP TABLE main.pays_production;
 DROP TABLE main.film_genre;
 DROP TABLE main.genre;
-DROP TABLE main.film_acteur;
-DROP TABLE main.acteur;
 DROP TABLE main.film_scenariste;
 DROP TABLE main.scenariste;
-DROP TABLE main.film;
+DROP TABLE main.film_acteur;
+DROP TABLE main.acteur;
+DROP TABLE main.tournage;
 DROP TABLE main.realisateur;
+DROP TABLE main.film;
 DROP TABLE main.personnel_film;
 
 -- tables
@@ -29,13 +30,7 @@ DROP TABLE main.personnel_film;
 
 -- auto id increments on tables
 @Tables/AUTO_increments.sql
--- procedures
-@Procedures/PROC_create_profile.sql
-@Procedures/PROC_create_client.sql
-@Procedures/PROC_create_membre.sql
-@Procedures/PROC_create_pret.sql
-@Procedures/PROC_create_film.sql
-@Procedures/PROC_create_adresse.sql
+
 -- functions
 @Functions/FUNC_is_alphanum.sql
 @Functions/FUNC_fcreate_profile.sql
@@ -43,6 +38,15 @@ DROP TABLE main.personnel_film;
 @Functions/FUNC_fcreate_pret.sql
 @Functions/FUNC_fcreate_film.sql
 @Functions/FUNC_fcreate_adresse.sql
+
+-- procedures
+@Procedures/PROC_create_profile.sql
+@Procedures/PROC_create_client.sql
+@Procedures/PROC_create_membre.sql
+@Procedures/PROC_create_pret.sql
+@Procedures/PROC_create_film.sql
+@Procedures/PROC_create_adresse.sql
+
 -- triggers
 @Triggers/BIUprofil_is_adult.sql
 @Triggers/BIUmdp_5alphanum.sql

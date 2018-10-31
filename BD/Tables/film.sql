@@ -10,11 +10,6 @@ CREATE TABLE main.personnel_film
 );
 
 
-CREATE TABLE main.realisateur(
-	id INT NOT NULL PRIMARY KEY
-);
-
-
 -- Create the table in the specified schema
 CREATE TABLE main.film
 (
@@ -25,34 +20,51 @@ CREATE TABLE main.film
     duree         INT NOT NULL,
     resume  	CHAR(255) NOT NULL,
     inventaire    INT NOT NULL,
-    realisateur_id INT UNIQUE REFERENCES main.realisateur(id),
 	CHECK(inventaire >= 0)
 );
 
 
+CREATE TABLE main.realisateur(
+	id INT NOT NULL REFERENCES main.personnel_film(id),
+    PRIMARY KEY(id)
+);
+
+
+CREATE TABLE main.tournage
+(
+    film_id INT REFERENCES main.film(id),
+    PRIMARY KEY(film_id),
+    realisateur_id INT REFERENCES main.realisateur(id)
+
+);
+
+
 CREATE TABLE main.acteur(
-	id INT NOT NULL PRIMARY KEY
+	id INT NOT NULL REFERENCES main.personnel_film(id),
+    PRIMARY KEY(id)
 );
 
 
 CREATE TABLE main.film_acteur
 (
     acteur_id INT REFERENCES main.acteur(id),
-    film_id INT REFERENCES main.film(id),
+    film_id INT REFERENCES main.tournage(film_id),
     PRIMARY KEY(acteur_id, film_id),
 	nom_personnage CHAR(20) NOT NULL
 );
 
 
 CREATE TABLE main.scenariste(
-	id INT NOT NULL PRIMARY KEY
+	id INT NOT NULL REFERENCES main.personnel_film(id),
+    PRIMARY KEY(id)
 );
+
 
 
 CREATE TABLE main.film_scenariste
 (
     scenariste_id INT REFERENCES main.scenariste(id),
-    film_id INT UNIQUE REFERENCES main.film(id),
+    film_id INT UNIQUE REFERENCES main.tournage(film_id),
     PRIMARY KEY(scenariste_id, film_id)
 );
 
