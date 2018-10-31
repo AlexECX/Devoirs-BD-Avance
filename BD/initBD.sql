@@ -64,6 +64,6 @@ DROP TABLE main.personnel_film;
 @Triggers/BDclient.sql
 
 -- initialise
-@data2.sql
+@data.sql
 
 
