@@ -14,7 +14,7 @@ BEGIN
     SELECT location_max
     INTO max_of
     FROM forfait, membre
-    WHERE forfait.nom = membre.forfait_nom;
+    WHERE membre.id = :new.profile_id AND forfait.nom = membre.forfait_nom;
     
     IF (count_of >= max_of) THEN	
         RAISE_APPLICATION_ERROR( 

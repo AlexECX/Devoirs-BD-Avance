@@ -29,7 +29,9 @@ CREATE TABLE main.profile
     nom         CHAR(20) NOT NULL,
     tel         VARCHAR(15) NOT NULL,
     date_naissance  DATE NOT NULL,
-    mot_de_passe    VARCHAR(18) NOT NULL
+    mot_de_passe    VARCHAR(18) NOT NULL,
+    CHECK (LENGTH(TRIM(TRANSLATE(tel, '0123456789', ' '))) < 0)
+
 );
 
 

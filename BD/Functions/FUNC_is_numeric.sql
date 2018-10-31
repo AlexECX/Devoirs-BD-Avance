@@ -1,0 +1,10 @@
+CREATE OR REPLACE FUNCTION main.is_numeric(string1 VARCHAR)
+  RETURN VARCHAR IS
+
+BEGIN
+    IF (LENGTH(TRIM(TRANSLATE(string1, '0123456789', ' '))) > 0) THEN
+        RETURN 'FALSE';
+    ELSE
+        RETURN 'TRUE';
+    END IF;
+END;

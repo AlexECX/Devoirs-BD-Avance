@@ -1,4 +1,3 @@
-set serveroutput on;
 
 declare
     line_profile main.profile%ROWTYPE;
@@ -9,6 +8,8 @@ begin
     line_film := main.fcreate_film('titre', 'langue_originale', CURRENT_DATE, 60, 'resume', 2);
     line_adresse := main.fcreate_adresse(1111, 'rue', 'ville', 'province', 'gy81o8');
     main.create_membre(line_profile.id, line_adresse.id, 'Avance');
+    main.create_pret(line_profile.id, line_film.id);
+    main.create_pret(line_profile.id, line_film.id);
     main.create_pret(line_profile.id, line_film.id);
 end;
 /

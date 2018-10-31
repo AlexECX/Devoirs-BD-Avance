@@ -33,6 +33,7 @@ DROP TABLE main.personnel_film;
 
 -- functions
 @Functions/FUNC_is_alphanum.sql
+@Functions/FUNC_is_numeric.sql
 @Functions/FUNC_fcreate_acteur.sql
 @Functions/FUNC_fcreate_realisateur.sql
 @Functions/FUNC_fcreate_scenariste.sql
@@ -59,5 +60,8 @@ DROP TABLE main.personnel_film;
 @Triggers/BIUlocationMax.sql
 @Triggers/BIUetat_pret.sql
 @Triggers/BDfilm.sql
+
+-- initialise
+@data2.sql
 
 
