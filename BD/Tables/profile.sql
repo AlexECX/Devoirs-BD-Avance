@@ -40,8 +40,8 @@ CREATE TABLE main.membre
     id INT NOT NULL PRIMARY KEY,
     FOREIGN KEY (id) REFERENCES main.profile(id) 
         ON DELETE CASCADE,
-    adresse_id INT REFERENCES main.adresse(id),
-    forfait_nom CHAR(20) REFERENCES main.forfait(nom)
+    adresse_id INT NOT NULL REFERENCES main.adresse(id),
+    forfait_nom CHAR(20) NOT NULL REFERENCES main.forfait(nom)
 );
 
 

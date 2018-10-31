@@ -59,7 +59,9 @@ DROP TABLE main.personnel_film;
 @Triggers/BIUmdp_5alphanum.sql
 @Triggers/BIUlocationMax.sql
 @Triggers/BIUetat_pret.sql
+@Triggers/BIUcarte_credit.sql
 @Triggers/BDfilm.sql
+@Triggers/BDclient.sql
 
 -- initialise
 @data2.sql
