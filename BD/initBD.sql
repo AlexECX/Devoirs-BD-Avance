@@ -26,6 +26,7 @@ DROP TABLE main.personnel_film;
 @Tables/film.sql
 @Tables/VIEW_info_membre.sql
 @Tables/VIEW_info_client.sql
+@Tables/VIEW_prets_client.sql
 -- table objects
 
 -- auto id increments on tables
@@ -34,6 +35,7 @@ DROP TABLE main.personnel_film;
 -- functions
 @Functions/FUNC_is_alphanum.sql
 @Functions/FUNC_is_numeric.sql
+@Functions/FUNC_calculate_retard.sql
 @Functions/FUNC_fcreate_acteur.sql
 @Functions/FUNC_fcreate_realisateur.sql
 @Functions/FUNC_fcreate_scenariste.sql
@@ -64,6 +66,6 @@ DROP TABLE main.personnel_film;
 @Triggers/BDclient.sql
 
 -- initialise
-@data2.sql
+@data.sql
 
 
