@@ -2,23 +2,18 @@ CREATE OR REPLACE TRIGGER main.BIUetat_pret
 	BEFORE INSERT OR UPDATE OF etat_pret ON main.pret_courant
     FOR EACH ROW
     DECLARE
-        CHECK_CONSTRAINT_VIOLATED EXCEPTION;
-        PRAGMA EXCEPTION_INIT(CHECK_CONSTRAINT_VIOLATED, -2290);
+        count_of    INT;
 	BEGIN
-		IF (:new.etat_pret = 'retourne') THEN	
-            UPDATE main.film 
-            SET inventaire = inventaire + 1
-            WHERE film.id = :new.film_id;      
-        END IF;
 		IF(:new.etat_pret = 'prete') THEN
-			UPDATE main.film 
-            SET inventaire = inventaire - 1
-            WHERE film.id = :new.film_id;      
-		END IF;
-        EXCEPTION
-            WHEN CHECK_CONSTRAINT_VIOLATED THEN 
+			SELECT COUNT(main.pret_courant.id)
+            INTO count_of
+            FROM main.pret_courant
+            WHERE pret_courant.film_id = :new.film_id AND pret_courant.etat_pret = 'prete';
+            IF(count_of > 0) THEN
                 RAISE_APPLICATION_ERROR( 
                     -20002, 
-                    'Check violation: ' || SQLERRM
+                    'Copie is already leased'
                     ); 
+            END IF;
+		END IF;
 	END;

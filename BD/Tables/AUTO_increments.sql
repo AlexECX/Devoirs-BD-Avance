@@ -54,6 +54,20 @@ BEGIN
 END;
 
 /
+DROP SEQUENCE main.film_copie_seq;
+CREATE SEQUENCE main.film_copie_seq START WITH 1;
+
+CREATE OR REPLACE TRIGGER main.AUTO_film_copie
+BEFORE INSERT ON main.film_copie 
+FOR EACH ROW
+
+BEGIN
+  SELECT main.film_copie_seq.NEXTVAL
+  INTO   :new.id
+  FROM   dual;
+END;
+
+/
 DROP SEQUENCE main.personnel_film_seq;
 CREATE SEQUENCE main.personnel_film_seq START WITH 1;
 

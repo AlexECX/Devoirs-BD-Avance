@@ -18,6 +18,7 @@ DROP TABLE main.film_acteur;
 DROP TABLE main.acteur;
 DROP TABLE main.tournage;
 DROP TABLE main.realisateur;
+DROP TABLE main.film_copie;
 DROP TABLE main.film;
 DROP TABLE main.personnel_film;
 
@@ -62,7 +63,7 @@ DROP TABLE main.personnel_film;
 @Triggers/BIUlocationMax.sql
 @Triggers/BIUetat_pret.sql
 @Triggers/BIUcarte_credit.sql
-@Triggers/BDfilm.sql
+@Triggers/BDfilm_copie.sql
 @Triggers/BDclient.sql
 
 -- initialise

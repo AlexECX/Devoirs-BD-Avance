@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.Membre" table="MEMBRE" schema="MAIN" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="foreign">
+                <param name="property">profile</param>
+            </generator>
+        </id>
+        <many-to-one name="adresse" class="movierental.Adresse" fetch="select">
+            <column name="ADRESSE_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="forfait" class="movierental.Forfait" fetch="select">
+            <column name="FORFAIT_NOM" length="20" not-null="true" />
+        </many-to-one>
+        <one-to-one name="profile" class="movierental.Profile" constrained="true"></one-to-one>
+    </class>
+</hibernate-mapping>

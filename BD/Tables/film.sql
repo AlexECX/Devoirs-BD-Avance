@@ -18,9 +18,13 @@ CREATE TABLE main.film
     langue_originale      CHAR(20) NOT NULL,
     annee_sortie         DATE NOT NULL,
     duree         INT NOT NULL,
-    resume  	CHAR(255) NOT NULL,
-    inventaire    INT NOT NULL,
-	CHECK(inventaire >= 0)
+    resume  	CHAR(255) NOT NULL
+);
+
+CREATE TABLE main.film_copie
+(
+    id   INT NOT NULL PRIMARY KEY,
+    film_id INT NOT NULL REFERENCES main.film(id)
 );
 
 
@@ -99,7 +103,7 @@ CREATE TABLE main.pret_courant
 (
 	id   INT NOT NULL PRIMARY KEY, -- primary key column
     profile_id    INT NOT NULL REFERENCES main.profile(id), 
-	film_id    INT NOT NULL REFERENCES main.film(id),
+	film_id    INT NOT NULL UNIQUE REFERENCES main.film_copie(id),
     date_pret      DATE NOT NULL,
     date_retour       DATE NOT NULL,
     etat_pret         VARCHAR(10) NOT NULL

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.PretCourant" table="PRET_COURANT" schema="MAIN" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="profile" class="movierental.Profile" fetch="select">
+            <column name="PROFILE_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="filmCopie" class="movierental.FilmCopie" fetch="select">
+            <column name="FILM_ID" precision="22" scale="0" not-null="true" unique="true" />
+        </many-to-one>
+        <property name="datePret" type="date">
+            <column name="DATE_PRET" length="7" not-null="true" />
+        </property>
+        <property name="dateRetour" type="date">
+            <column name="DATE_RETOUR" length="7" not-null="true" />
+        </property>
+        <property name="etatPret" type="string">
+            <column name="ETAT_PRET" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

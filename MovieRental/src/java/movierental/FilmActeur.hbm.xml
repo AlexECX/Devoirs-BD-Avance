@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.FilmActeur" table="FILM_ACTEUR" schema="MAIN" optimistic-lock="version">
+        <composite-id name="id" class="movierental.FilmActeurId">
+            <key-property name="acteurId" type="big_decimal">
+                <column name="ACTEUR_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="filmId" type="big_decimal">
+                <column name="FILM_ID" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tournage" class="movierental.Tournage" update="false" insert="false" fetch="select">
+            <column name="FILM_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="acteur" class="movierental.Acteur" update="false" insert="false" fetch="select">
+            <column name="ACTEUR_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="nomPersonnage" type="string">
+            <column name="NOM_PERSONNAGE" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

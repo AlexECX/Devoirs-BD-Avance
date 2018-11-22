@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.Tournage" table="TOURNAGE" schema="MAIN" optimistic-lock="version">
+        <id name="filmId" type="big_decimal">
+            <column name="FILM_ID" precision="22" scale="0" />
+            <generator class="foreign">
+                <param name="property">film</param>
+            </generator>
+        </id>
+        <one-to-one name="film" class="movierental.Film" constrained="true"></one-to-one>
+        <many-to-one name="realisateur" class="movierental.Realisateur" fetch="select">
+            <column name="REALISATEUR_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <set name="filmActeurs" table="FILM_ACTEUR" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FILM_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="movierental.FilmActeur" />
+        </set>
+        <set name="scenaristes" table="FILM_SCENARISTE" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="FILM_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <many-to-many entity-name="movierental.Scenariste">
+                <column name="SCENARISTE_ID" precision="22" scale="0" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

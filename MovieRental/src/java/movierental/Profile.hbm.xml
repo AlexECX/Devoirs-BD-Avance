@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.Profile" table="PROFILE" schema="MAIN" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="courriel" type="string">
+            <column name="COURRIEL" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="prenom" type="string">
+            <column name="PRENOM" length="20" not-null="true" />
+        </property>
+        <property name="nom" type="string">
+            <column name="NOM" length="20" not-null="true" />
+        </property>
+        <property name="tel" type="string">
+            <column name="TEL" length="15" not-null="true" />
+        </property>
+        <property name="dateNaissance" type="date">
+            <column name="DATE_NAISSANCE" length="7" not-null="true" />
+        </property>
+        <property name="motDePasse" type="string">
+            <column name="MOT_DE_PASSE" length="18" not-null="true" />
+        </property>
+        <one-to-one name="membre" class="movierental.Membre"></one-to-one>
+        <one-to-one name="employe" class="movierental.Employe"></one-to-one>
+        <set name="pretCourants" table="PRET_COURANT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PROFILE_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="movierental.PretCourant" />
+        </set>
+        <one-to-one name="client" class="movierental.Client"></one-to-one>
+    </class>
+</hibernate-mapping>

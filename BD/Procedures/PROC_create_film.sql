@@ -4,12 +4,11 @@ procedure main.create_film(
     langue_originale    main.film.langue_originale%TYPE,
     annee_sortie        main.film.annee_sortie%TYPE,
     duree               main.film.duree%TYPE,
-    resume  	        main.film.resume%TYPE,           
-    inventaire          main.film.inventaire%TYPE
+    resume  	        main.film.resume%TYPE      
 ) is
 
     ligne   main.film%ROWTYPE;
 
 begin
-    ligne := main.fcreate_film(titre, langue_originale, annee_sortie, duree, resume, inventaire);
+    ligne := main.fcreate_film(titre, langue_originale, annee_sortie, duree, resume);
 end;

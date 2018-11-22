@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.Adresse" table="ADRESSE" schema="MAIN" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="numCivique" type="big_decimal">
+            <column name="NUM_CIVIQUE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="rue" type="string">
+            <column name="RUE" length="30" not-null="true" />
+        </property>
+        <property name="ville" type="string">
+            <column name="VILLE" length="30" not-null="true" />
+        </property>
+        <property name="province" type="string">
+            <column name="PROVINCE" length="30" not-null="true" />
+        </property>
+        <property name="codePostal" type="string">
+            <column name="CODE_POSTAL" length="6" not-null="true" />
+        </property>
+        <set name="membres" table="MEMBRE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ADRESSE_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="movierental.Membre" />
+        </set>
+    </class>
+</hibernate-mapping>

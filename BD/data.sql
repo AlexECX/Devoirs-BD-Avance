@@ -24,7 +24,7 @@ declare
     ligne_acteur  main.personnel_film%ROWTYPE;
     ligne_realisteur  main.personnel_film%ROWTYPE;
 begin
-    ligne_film := main.fcreate_film('Intouchable', 'Francais', to_date('03/06/2010', 'dd/mm/yyyy'), 60, 'Raconte la vie dune personne milliardaire handicapée.', 1);
+    ligne_film := main.fcreate_film('Intouchable', 'Francais', to_date('03/06/2010', 'dd/mm/yyyy'), 60, 'Raconte la vie dune personne milliardaire handicapée.');
     INSERT INTO main.film_pays_production VALUES ('France', ligne_film.id);
     INSERT INTO main.film_genre VALUES ('histoire', ligne_film.id);
     
@@ -54,7 +54,7 @@ declare
     ligne_acteur  main.personnel_film%ROWTYPE;
     ligne_realisteur  main.personnel_film%ROWTYPE;
 begin
-    ligne_film := main.fcreate_film('REC', 'Espagnol', to_date('03/06/2005', 'dd/mm/yyyy'), 78, 'Invasion de zombie dans un hotel.', 5);
+    ligne_film := main.fcreate_film('REC', 'Espagnol', to_date('03/06/2005', 'dd/mm/yyyy'), 78, 'Invasion de zombie dans un hotel.');
     INSERT INTO main.film_pays_production VALUES ('France', ligne_film.id);
     INSERT INTO main.film_genre VALUES ('histoire', ligne_film.id);
     
@@ -85,7 +85,7 @@ declare
     ligne_acteur  main.personnel_film%ROWTYPE;
     ligne_realisteur  main.personnel_film%ROWTYPE;
 begin
-    ligne_film := main.fcreate_film('Thor', 'Anglais', to_date('03/06/2007', 'dd/mm/yyyy'), 111, 'Histoire dun dieu.', 8);
+    ligne_film := main.fcreate_film('Thor', 'Anglais', to_date('03/06/2007', 'dd/mm/yyyy'), 111, 'Histoire dun dieu.');
     INSERT INTO main.film_pays_production VALUES ('France', ligne_film.id);
     INSERT INTO main.film_genre VALUES ('histoire', ligne_film.id);
     
@@ -115,7 +115,7 @@ declare
     ligne_acteur  main.personnel_film%ROWTYPE;
     ligne_realisteur  main.personnel_film%ROWTYPE;
 begin
-    ligne_film := main.fcreate_film('Hercule', 'Anglais', to_date('03/06/2009', 'dd/mm/yyyy'), 124, 'Raconte l\histoire de la légende Hercule.', 3);
+    ligne_film := main.fcreate_film('Hercule', 'Anglais', to_date('03/06/2009', 'dd/mm/yyyy'), 124, 'Raconte l\histoire de la légende Hercule.');
     INSERT INTO main.film_pays_production VALUES ('France', ligne_film.id);
     INSERT INTO main.film_genre VALUES ('histoire', ligne_film.id);
     
@@ -145,7 +145,7 @@ declare
     ligne_acteur  main.personnel_film%ROWTYPE;
     ligne_realisteur  main.personnel_film%ROWTYPE;
 begin
-    ligne_film := main.fcreate_film('Mission Impossible', 'Anglais', to_date('03/06/1998', 'dd/mm/yyyy'), 77, 'Une mission qui tourne mal.', 1);
+    ligne_film := main.fcreate_film('Mission Impossible', 'Anglais', to_date('03/06/1998', 'dd/mm/yyyy'), 77, 'Une mission qui tourne mal.');
     INSERT INTO main.film_pays_production VALUES ('France', ligne_film.id);
     INSERT INTO main.film_genre VALUES ('histoire', ligne_film.id);
     

@@ -1,5 +1,5 @@
-CREATE OR REPLACE TRIGGER main.BDfilm
-	BEFORE DELETE ON main.film
+CREATE OR REPLACE TRIGGER main.BDfilm_copie
+	BEFORE DELETE ON main.film_copie
     FOR EACH ROW
 	DECLARE
 		pret INT;
@@ -12,7 +12,7 @@ CREATE OR REPLACE TRIGGER main.BDfilm
 		IF (pret > 0) THEN 
         RAISE_APPLICATION_ERROR( 
                     -20002, 
-                    'Delete is not possible : one copie is in location' 
+                    'Delete is not possible : one or more copies are in location' 
                     ); 
         END IF;
 END;

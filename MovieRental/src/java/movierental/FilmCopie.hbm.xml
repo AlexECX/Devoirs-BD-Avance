@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.FilmCopie" table="FILM_COPIE" schema="MAIN" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="film" class="movierental.Film" fetch="select">
+            <column name="FILM_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <set name="pretCourants" table="PRET_COURANT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FILM_ID" precision="22" scale="0" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="movierental.PretCourant" />
+        </set>
+    </class>
+</hibernate-mapping>

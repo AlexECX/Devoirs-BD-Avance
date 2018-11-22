@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.PersonnelFilm" table="PERSONNEL_FILM" schema="MAIN" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="nom" type="string">
+            <column name="NOM" length="20" not-null="true" />
+        </property>
+        <property name="prenom" type="string">
+            <column name="PRENOM" length="20" not-null="true" />
+        </property>
+        <property name="dateNaissance" type="date">
+            <column name="DATE_NAISSANCE" length="7" />
+        </property>
+        <property name="lieuNaissance" type="string">
+            <column name="LIEU_NAISSANCE" length="20" />
+        </property>
+        <property name="biographie" type="string">
+            <column name="BIOGRAPHIE" />
+        </property>
+        <one-to-one name="scenariste" class="movierental.Scenariste"></one-to-one>
+        <one-to-one name="realisateur" class="movierental.Realisateur"></one-to-one>
+        <one-to-one name="acteur" class="movierental.Acteur"></one-to-one>
+    </class>
+</hibernate-mapping>

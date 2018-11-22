@@ -4,16 +4,15 @@ function main.fcreate_film(
     langue_originale    main.film.langue_originale%TYPE,
     annee_sortie        main.film.annee_sortie%TYPE,
     duree               main.film.duree%TYPE,
-    resume  	        main.film.resume%TYPE,           
-    inventaire          main.film.inventaire%TYPE
+    resume  	        main.film.resume%TYPE        
 ) RETURN main.film%ROWTYPE is
 
     ligne   main.film%ROWTYPE;
     f_id      INT;
 
 begin
-    INSERT INTO main.film(titre, langue_originale, annee_sortie, duree, resume, inventaire) 
-    VALUES (titre, langue_originale, annee_sortie, duree, resume, inventaire);
+    INSERT INTO main.film(titre, langue_originale, annee_sortie, duree, resume) 
+    VALUES (titre, langue_originale, annee_sortie, duree, resume);
 
     f_id := main.film_seq.CURRVAL;
 

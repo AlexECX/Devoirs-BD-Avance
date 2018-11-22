@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.Forfait" table="FORFAIT" schema="MAIN" optimistic-lock="version">
+        <id name="nom" type="string">
+            <column name="NOM" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="cout" type="big_decimal">
+            <column name="COUT" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="locationMax" type="big_decimal">
+            <column name="LOCATION_MAX" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="dureeMax" type="big_decimal">
+            <column name="DUREE_MAX" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="membres" table="MEMBRE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FORFAIT_NOM" length="20" not-null="true" />
+            </key>
+            <one-to-many class="movierental.Membre" />
+        </set>
+    </class>
+</hibernate-mapping>

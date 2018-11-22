@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-11-22 14:13:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="movierental.Film" table="FILM" schema="MAIN" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="titre" type="string">
+            <column name="TITRE" length="50" not-null="true" />
+        </property>
+        <property name="langueOriginale" type="string">
+            <column name="LANGUE_ORIGINALE" length="20" not-null="true" />
+        </property>
+        <property name="anneeSortie" type="date">
+            <column name="ANNEE_SORTIE" length="7" not-null="true" />
+        </property>
+        <property name="duree" type="big_decimal">
+            <column name="DUREE" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="resume" type="string">
+            <column name="RESUME" not-null="true" />
+        </property>
+        <set name="filmCopies" table="FILM_COPIE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FILM_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="movierental.FilmCopie" />
+        </set>
+        <one-to-one name="tournage" class="movierental.Tournage"></one-to-one>
+        <set name="genres" table="FILM_GENRE" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="FILM_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <many-to-many entity-name="movierental.Genre">
+                <column name="GENRE_NOM" length="10" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="paysProductions" table="FILM_PAYS_PRODUCTION" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="FILM_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <many-to-many entity-name="movierental.PaysProduction">
+                <column name="PAYS_PRODUCTION_NOM" length="10" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
