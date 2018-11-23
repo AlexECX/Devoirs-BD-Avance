@@ -5,10 +5,9 @@
         <group>
             <file>file:/D:/Env/GitHubDesktopPortable-master/Repos/Devoirs-BD-Avance/MovieRental/src/java/hibernate.reveng.xml</file>
             <file>file:/D:/Env/GitHubDesktopPortable-master/Repos/Devoirs-BD-Avance/MovieRental/src/java/movierental/Client.java</file>
-            <file>file:/D:/Env/GitHubDesktopPortable-master/Repos/Devoirs-BD-Avance/MovieRental/src/java/app/App.java</file>
+            <file>file:/D:/Env/GitHubDesktopPortable-master/Repos/Devoirs-BD-Avance/MovieRental/src/java/app/main.java</file>
             <file>file:/D:/Env/GitHubDesktopPortable-master/Repos/Devoirs-BD-Avance/MovieRental/src/java/movierental/NewHibernateUtil.java</file>
             <file>file:/D:/Env/GitHubDesktopPortable-master/Repos/Devoirs-BD-Avance/MovieRental/src/java/courtier/CourtierBDFilm.java</file>
-            <file>file:/D:/Env/GitHubDesktopPortable-master/Repos/Devoirs-BD-Avance/MovieRental/src/java/movierental/Acteur.java</file>
             <file>file:/D:/Env/GitHubDesktopPortable-master/Repos/Devoirs-BD-Avance/MovieRental/src/java/hibernate.cfg.xml</file>
         </group>
     </open-files>

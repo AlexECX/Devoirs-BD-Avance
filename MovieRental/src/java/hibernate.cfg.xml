@@ -46,6 +46,10 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
     <property name="hibernate.connection.username">main</property>
     <property name="hibernate.connection.password">main</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <mapping resource="movierental/Genre.hbm.xml"/>
     <mapping resource="movierental/Profile.hbm.xml"/>
     <mapping resource="movierental/Membre.hbm.xml"/>
     <mapping resource="movierental/Adresse.hbm.xml"/>
@@ -53,7 +57,6 @@ Contributor(s):
     <mapping resource="movierental/FilmActeur.hbm.xml"/>
     <mapping resource="movierental/FilmCopie.hbm.xml"/>
     <mapping resource="movierental/Forfait.hbm.xml"/>
-    <mapping resource="movierental/Genre.hbm.xml"/>
     <mapping resource="movierental/Client.hbm.xml"/>
     <mapping resource="movierental/PretCourant.hbm.xml"/>
     <mapping resource="movierental/CarteCredit.hbm.xml"/>

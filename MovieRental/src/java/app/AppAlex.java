@@ -10,13 +10,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * App
+ * AppAlex
  */
 public class AppAlex {
 
     public static void main(String[] args) {
         try {
             //init
+            Logger.getLogger(AppAlex.class.getName()).log(Level.SEVERE, null, new Exception("test"));
             Class.forName ("oracle.jdbc.driver.OracleDriver");
             
             Connection conn = DriverManager.getConnection(
@@ -31,9 +32,9 @@ public class AppAlex {
             PreparedStatement query = c.compileFilter(filters, choices);
             c.name(query);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AppAlex.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AppAlex.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     
