@@ -1,6 +1,7 @@
 package app;
 
 import courtier.CourtierBDFilm;
+import courtier.SearchFilter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,19 +18,16 @@ public class AppAlex {
     public static void main(String[] args) {
         try {
             //init
-            Logger.getLogger(AppAlex.class.getName()).log(Level.SEVERE, null, new Exception("test"));
             Class.forName ("oracle.jdbc.driver.OracleDriver");
             
             Connection conn = DriverManager.getConnection(
                     "jdbc:oracle:thin:@localhost:1521:XE",
                     "MAIN",
                     "main");
-            Vector<Integer> filters = new Vector<>();
-            Vector<String> choices = new Vector<>();
-            filters.addElement(0);
-            choices.addElement("Intouchable");
+            Vector<SearchFilter> filters = new Vector<>();
+            filters.addElement(new SearchFilter(1, "Intouchable"));
             CourtierBDFilm c = new CourtierBDFilm(conn);
-            PreparedStatement query = c.compileFilter(filters, choices);
+            PreparedStatement query = c.compileFilter(filters);
             c.name(query);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AppAlex.class.getName()).log(Level.SEVERE, null, ex);
