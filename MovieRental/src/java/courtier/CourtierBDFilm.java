@@ -53,7 +53,7 @@ public class CourtierBDFilm {
             return this.uneConnection.prepareStatement(query);
         }
 
-        //query = query.concat(" WHERE ");
+        query = query.concat(" WHERE ");
         Collections.sort(filters_list, Comparator.comparing(SearchFilter::getId));
         
         Integer index = filters_list.get(0).filter_id;
