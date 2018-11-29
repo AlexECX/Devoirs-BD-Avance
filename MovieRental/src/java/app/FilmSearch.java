@@ -108,7 +108,8 @@ public class FilmSearch extends HttpServlet {
             // Creer une requete au serveur BD
             chaineRecherche = request.getParameter("chaineRecherche");
             Vector<SearchFilter> filters = new Vector<>();
-            filters.addElement(new SearchFilter(0, chaineRecherche));
+            if (chaineRecherche.compareTo("") != 0)
+                filters.addElement(new SearchFilter(2, chaineRecherche));
             CourtierBDFilm cf = new CourtierBDFilm(conn);
             ResultSet rs = cf.search(cf.compileFilter(filters));
             //ps.setString(1,"%" + chaineRecherche + "%");

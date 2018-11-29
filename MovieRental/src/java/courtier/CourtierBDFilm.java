@@ -19,23 +19,29 @@ import org.hibernate.Session;
 public class CourtierBDFilm {
     private Connection uneConnection;
     private Vector<String> filters = new Vector<>();
-    private String base_query = "SELECT * FROM film";
+    private Vector<String> tables = new Vector<>();
     // Constructeur pour connexion passée par le créateur
     public CourtierBDFilm(Connection laConnection){
         this.uneConnection = laConnection;
         this.filters.addElement("film.titre = ?");
+        this.tables.addElement("");
         this.filters.addElement("film.annee_sortie > ? and film.annee_sortie < ? ");
+        this.tables.addElement("");
         this.filters.addElement("film.id = film_pays_production.film_id " +
                                 "AND film_pays_production.nom = pays_production.nom "+
                                 "AND pays_production.nom = ? ");
+        this.tables.addElement(", film_pays_production, pays_production");
         this.filters.addElement("film.langue_original = ? ");
+        this.tables.addElement("");
         this.filters.addElement("film.id = film_genre.film_id " +
                                 "AND film_genre.genre_nom = genre.nom "+
                                 "AND genre.nom = ? ");
+        this.tables.addElement(", film_genre, genre");
         this.filters.addElement("film.id = tournage.film_id " +
                                 "AND tournage.realisateur_id = realisateur.id "+
                                 "AND realisateur.id = personnel_film.id "+
                                 "AND personnel_film.nom = ? ");
+        this.tables.addElement(", tournage, realisateur, personnel_film");
         this.filters.addElement("film.id = tournage.film_id " +
                                 "AND tournage.film_id = film_acteur.film_id "+
                                 "AND film_acteur.acteur_id = acteur.id "+
@@ -46,9 +52,10 @@ public class CourtierBDFilm {
     public String getInitialQuery() {
         return this.base_query;
     }
-
+    
     public PreparedStatement compileFilter(Vector<SearchFilter> filters_list) throws SQLException {
-        String query = this.getInitialQuery();
+        String query = "SELECT * FROM ";
+        String tables = "film";
         if (filters_list.size() == 0) {
             return this.uneConnection.prepareStatement(query);
         }
