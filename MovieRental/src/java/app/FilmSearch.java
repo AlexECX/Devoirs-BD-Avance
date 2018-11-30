@@ -25,6 +25,10 @@ import java.sql.ResultSet;
 import java.util.Vector;
 import courtier.CourtierBDFilm;
 import courtier.SearchFilter;
+import java.util.List;
+import movierental.Film;
+import movierental.NewHibernateUtil;
+import org.hibernate.Session;
 
 /**
  *
@@ -108,10 +112,12 @@ public class FilmSearch extends HttpServlet {
             // Creer une requete au serveur BD
             chaineRecherche = request.getParameter("chaineRecherche");
             Vector<SearchFilter> filters = new Vector<>();
+            
+            Session connH = NewHibernateUtil.getSessionFactory().openSession();
             if (chaineRecherche.compareTo("") != 0)
                 filters.addElement(new SearchFilter(2, chaineRecherche));
-            CourtierBDFilm cf = new CourtierBDFilm(conn);
-            ResultSet rs = cf.search(cf.compileFilter(filters));
+            CourtierBDFilm cf = new CourtierBDFilm(connH);
+            List rs = cf.search(cf.compileFilter(filters));
             //ps.setString(1,"%" + chaineRecherche + "%");
             // Decoder les resultats
             
@@ -123,12 +129,13 @@ public class FilmSearch extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<p>Results:</p>");
-            while (rs.next())
+            
+            for (Object film : rs) {
+                Film f = (Film)film;
                 out.println(
-                        "<p>" +
-                        rs.getString("titre") + 
-                        "("+rs.getString("annee_sortie").substring(0, 4)+")" + 
-                        "</p>");
+                    "<p>"+f.getTitre()+" "+f.getAnneeSortie()+"</p>"
+                );
+            }
             out.println("</body>");
             out.println("</html>");
             
