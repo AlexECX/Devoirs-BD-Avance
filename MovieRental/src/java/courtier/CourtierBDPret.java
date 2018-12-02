@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import movierental.NewHibernateUtil;
+import movierental.PretCourant;
 import org.hibernate.Session;
 
 /**
@@ -24,13 +25,13 @@ public class CourtierBDPret {
         this.connectionUser = conn;
     }
     
-    public String louerFilm(int idFilm, int idClient) throws SQLException{
+    public boolean louerFilm(int idFilm, int idClient) throws SQLException{
         PreparedStatement dureeMax = connectionUser.prepareStatement("SELECT duree_max FROM forfait, membre WHERE membre.forfait_nom = forfait.nom AND membre.id =" + idClient);
         ResultSet resultatDureeMax = dureeMax.executeQuery();
+        resultatDureeMax.next();
         int dureeAjoutee = resultatDureeMax.getInt("duree_max");
-        Session sessionLouerFilm = NewHibernateUtil.getSessionFactory().openSession();
-        sessionLouerFilm.beginTransaction();
-        sessionLouerFilm.createQuery("INSERT INTO PretCourant VALUES ("+ idClient + "," + idFilm + ",to_date(CURRENT_DATE, CURRENT_DATE +" + dureeAjoutee + ", 'prete'");
-        return "Le prêt a bien était effectué, bon visionnage !";
+        PreparedStatement louerFilm = connectionUser.prepareStatement("INSERT INTO pret_courant(profile_id, film_id, date_pret, date_retour, etat_pret) VALUES (" + idClient + "," + idFilm + ", CURRENT_DATE, CURRENT_DATE +" + dureeAjoutee + ", 'prete')");
+        louerFilm.executeUpdate();
+        return true;
     }
 }

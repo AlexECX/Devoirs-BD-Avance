@@ -35,7 +35,7 @@ public class CourtierBDUtilisateur {
         }
     }
 
-    public boolean seConnecter (String user, String password) throws SQLException
+    public int seConnecter (String user, String password) throws SQLException
     {
        if(user == "" || password == "")
        {
@@ -43,27 +43,26 @@ public class CourtierBDUtilisateur {
        }
        
        boolean matriculeOrNot = isInt(user);
-       
+       int idUser = 0;
        if(matriculeOrNot == false)
        {
-            PreparedStatement userValid = connectionUser.prepareStatement("SELECT courriel, motDePasse FROM profile WHERE courriel =" + user + "AND password =" + password);
+            PreparedStatement userValid = connectionUser.prepareStatement("SELECT id, courriel, mot_de_passe FROM profile WHERE courriel ='" + user + "' AND mot_de_passe ='" + password + "'");
             ResultSet resultatUserValid = userValid.executeQuery();
             if(resultatUserValid.next())
             {
                  System.out.println("Vous êtes dorénavant connecté en tant que Client.");
-                 return true;
+                 idUser = resultatUserValid.getInt("id");
             }
-            return false;
        }
        else {
-           PreparedStatement userValid = connectionUser.prepareStatement("SELECT matricule, motDePasse FROM profile, employe WHERE profile.id = employe.id AND matricule =" + user + "AND password =" + password);
+           PreparedStatement userValid = connectionUser.prepareStatement("SELECT id, matricule, mot_de_passe FROM profile, employe WHERE profile.id = employe.id AND matricule = '" + user + "' AND mot_de_passe ='" + password + "'");
             ResultSet resultatUserValid = userValid.executeQuery();
             if(resultatUserValid.next())
             {
                  System.out.println("Vous êtes dorénavant connecté en tant qu'Employe (il n'y à pas de fonctionnalité particulière pour un employé pour l'instant, vous avez donc les mêmes droits qu'un client.");
-                 return true;
+                 idUser = resultatUserValid.getInt("id");
             }
-            return false;
        }
+       return idUser;
     }
 }
