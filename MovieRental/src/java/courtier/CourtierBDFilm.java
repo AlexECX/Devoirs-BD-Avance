@@ -30,27 +30,28 @@ public class CourtierBDFilm {
     // Constructeur pour connexion passée par le créateur
     public CourtierBDFilm(Session laConnection) {
         this.uneSession = laConnection;
-        this.filters.addElement("film.titre = :A");
-        this.filters.addElement("film.annee_sortie > :A and film.annee_sortie < :A");
-        this.filters.addElement("film.id = ppf.id " + "AND pays_production.nom = :A");
-        this.filters.addElement("film.langue_original = :A ");
-        this.filters.addElement("film.id = gf.id " + "AND genre.nom = :A");
+        this.filters.addElement("film.titre = ':A'");
+        this.filters.addElement("film.anneeSortie > to_date(':A', 'yyyy')");
+        this.filters.addElement("film.anneeSortie < to_date(':A', 'yyyy')");
+        this.filters.addElement("film.id = ppf.id " + "AND pays_production.nom = ':A'");
+        this.filters.addElement("film.langueOriginal = ':A'");
+        this.filters.addElement("film.id = gf.id " + "AND genre.nom = ':A'");
         this.filters.addElement("film.id = tournage.filmId " + "AND tournage.realisateur.id = personnel_film.id " 
-                + "AND personnel_film.nom = :A");
+                + "AND personnel_film.nom = ':A'");
         this.filters.addElement("film.id = tournage.filmId " + "AND tournage.filmId = film_acteur.id.filmId "
-                + "AND film_acteur.id.acteurId = acteur.id " + "AND acteur.id = personnel_film.id "
-                + "AND personnel_film.nom = :A");
+                + "AND film_acteur.id.acteurId = acteur.id " + "AND acteur.id = personnel_film.id " 
+                + "AND personnel_film.nom = ':A'");
 
+        this.tables.addElement(Arrays.asList());
         this.tables.addElement(Arrays.asList());
         this.tables.addElement(Arrays.asList());
         this.tables.addElement(
                 Arrays.asList("PaysProduction pays_production", "pays_production.films ppf"));
         this.tables.addElement(Arrays.asList());
         this.tables.addElement(Arrays.asList("Genre genre, genre.films gf"));
-        this.tables.addElement(
-                Arrays.asList("Tournage tournage", "PersonnelFilm personnel_film"));
-        this.tables.addElement(Arrays.asList("Tournage tournage", "tournage.filmActeurs film_acteur", "Acteur acteur",
-                "PersonnelFilm personnel_film"));
+        this.tables.addElement(Arrays.asList("Tournage tournage", "PersonnelFilm personnel_film"));
+        this.tables.addElement(Arrays.asList("Tournage tournage", "tournage.filmActeurs film_acteur",
+                "Acteur acteur", "PersonnelFilm personnel_film"));
 
     }
 
@@ -75,7 +76,7 @@ public class CourtierBDFilm {
         tables_needed.addAll(this.tables.get(index));
         query = query.concat(this.filters.get(index));
         // temporaire, le temps de faire fonctionner hibernate
-        query = query.replaceAll(":A", "'" + filters_list.get(0).getChoice() + "'");
+        query = query.replaceAll(":A", filters_list.get(0).getChoice());
 
         Integer prev = index;
         for (int i = 1; i < filters_list.size(); i++) {
@@ -89,7 +90,7 @@ public class CourtierBDFilm {
             }
             query = query.concat(this.filters.get(index));
             // temporaire
-            query = query.replaceAll(":A", "'" + filters_list.get(0).getChoice() + "'");
+            query = query.replaceAll(":A", filters_list.get(i).getChoice());
 
         }
 

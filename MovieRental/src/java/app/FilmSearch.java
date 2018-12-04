@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.sql.Connection;
+import java.util.Date;
 import java.io.StringWriter;
 import java.sql.DriverManager;
 import oracle.jdbc.pool.*; 
@@ -50,6 +50,8 @@ public class FilmSearch extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private Vector<SearchFilter> searchFilters = new Vector<>();
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -80,6 +82,25 @@ public class FilmSearch extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        String choix = request.getParameter("choix");
+        String tmp = request.getParameter("filtre");
+        Integer filtre;
+        if (tmp != null && choix != null){
+            if (tmp.compareTo("1") == 0){
+                String choix2 = request.getParameter("choix2");
+                String tmp2 = request.getParameter("filtre2");
+                if (choix2 != null && tmp2 != null){
+                    filtre = Integer.parseInt(tmp);
+                    this.searchFilters.addElement(new SearchFilter(filtre, choix));
+                    filtre = Integer.parseInt(tmp2);
+                    this.searchFilters.addElement(new SearchFilter(filtre, choix2));
+                } 
+            } else {
+                filtre = Integer.parseInt(tmp);
+                this.searchFilters.addElement(new SearchFilter(filtre, choix));
+            }
+        }
+        
         RequestDispatcher view = request.getRequestDispatcher("FormWebServlet.html");
         view.forward(request, response);
     }
@@ -96,7 +117,6 @@ public class FilmSearch extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String chaineRecherche = ""; 
-        Connection conn = null; 
         PreparedStatement ps = null;
         PrintWriter out = response.getWriter();
         try {
@@ -114,8 +134,10 @@ public class FilmSearch extends HttpServlet {
             //         "MAIN",
             //         "main");
             // // Creer une requete au serveur BD
-            chaineRecherche = request.getParameter("chaineRecherche");
+            //chaineRecherche = request.getParameter("chaineRecherche");
             Vector<SearchFilter> filters = new Vector<>();
+            filters.addAll(this.searchFilters);
+            this.searchFilters.clear();
             
             Session connH = NewHibernateUtil.getSessionFactory().openSession();
             //Criteria cr = connH.createCriteria(Film.class);
@@ -129,8 +151,11 @@ public class FilmSearch extends HttpServlet {
 
             
             
-            if (chaineRecherche.compareTo("") != 0)
-                filters.addElement(new SearchFilter(5, chaineRecherche));
+            //if (chaineRecherche.compareTo("") != 0)
+            //    filters.addElement(new SearchFilter(5, chaineRecherche));
+            if (filters.isEmpty()){
+                filters.addElement(new SearchFilter(0, ""));
+            }
             CourtierBDFilm cf = new CourtierBDFilm(connH);
             List rs = cf.compileFilter(filters).list();
 
@@ -144,13 +169,17 @@ public class FilmSearch extends HttpServlet {
             out.println("<title>Servlet FilmSearch</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<p>Results:</p>");
-            
-            for (Object film : rs) {
-                Film f = (Film)film;
-                out.println(
-                    "<p>"+f.getTitre()+" ("+f.getAnneeSortie().toString().substring(0, 4)+")</p>"
-                );
+            if (rs.size() == 0){
+                out.println("<p>Results: Aucune entrées</p>");
+            } else {
+                out.println("<p>Results: "+Integer.toString(rs.size())+ " entrées</p>");
+                for (Object film : rs) {
+                    Film f = (Film)film;
+                    out.println(
+                        "<p>"+f.getTitre()+
+                        " ("+f.getAnneeSortie().toString().substring(0, 4)+")</p>"
+                    );
+                }
             }
             out.println("</body>");
             out.println("</html>");
@@ -171,8 +200,8 @@ public class FilmSearch extends HttpServlet {
                 out.close();
                 if (ps != null)
                     ps.close();
-                if (conn != null)
-                    conn.close();
+                //if (conn != null)
+                //    conn.close();
             }
             catch(Exception lException){
                 lException.printStackTrace();
