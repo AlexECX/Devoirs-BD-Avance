@@ -4,9 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;import java.util.Comparator;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import movierental.Film;
@@ -20,75 +25,85 @@ import org.hibernate.Session;
 public class CourtierBDFilm {
     private Session uneSession;
     private Vector<String> filters = new Vector<>();
+    private Vector<List<String>> tables = new Vector<>();
+
     // Constructeur pour connexion passée par le créateur
-    public CourtierBDFilm(Session laConnection){
+    public CourtierBDFilm(Session laConnection) {
         this.uneSession = laConnection;
-        this.filters.addElement("film.titre = ?");
-        this.filters.addElement("film.annee_sortie > ? and film.annee_sortie < ?");
-        this.filters.addElement("film.id = film_pays_production.film_id " +
-                                "AND film_pays_production.nom = pays_production.nom "+
-                                "AND pays_production.nom = ?");
-        this.filters.addElement("film.langue_original = ? ");
-        this.filters.addElement("film.id = film_genre.film_id " +
-                                "AND film_genre.genre_nom = genre.nom "+
-                                "AND genre.nom = ?");
-        this.filters.addElement("film.id = tournage.film_id " +
-                                "AND tournage.realisateur_id = realisateur.id "+
-                                "AND realisateur.id = personnel_film.id "+
-                                "AND personnel_film.nom = ?");
-        this.filters.addElement("film.id = tournage.film_id " +
-                                "AND tournage.film_id = film_acteur.film_id "+
-                                "AND film_acteur.acteur_id = acteur.id "+
-                                "AND acteur.id = personnel_film.id "+
-                                "AND personnel_film.nom = ?");
+        this.filters.addElement("film.titre = :A");
+        this.filters.addElement("film.annee_sortie > :A and film.annee_sortie < :A");
+        this.filters.addElement("film.id = ppf.id " + "AND pays_production.nom = :A");
+        this.filters.addElement("film.langue_original = :A ");
+        this.filters.addElement("film.id = gf.id " + "AND genre.nom = :A");
+        this.filters.addElement("film.id = tournage.filmId " + "AND tournage.realisateur.id = personnel_film.id " 
+                + "AND personnel_film.nom = :A");
+        this.filters.addElement("film.id = tournage.filmId " + "AND tournage.filmId = film_acteur.id.filmId "
+                + "AND film_acteur.id.acteurId = acteur.id " + "AND acteur.id = personnel_film.id "
+                + "AND personnel_film.nom = :A");
+
+        this.tables.addElement(Arrays.asList());
+        this.tables.addElement(Arrays.asList());
+        this.tables.addElement(
+                Arrays.asList("PaysProduction pays_production", "pays_production.films ppf"));
+        this.tables.addElement(Arrays.asList());
+        this.tables.addElement(Arrays.asList("Genre genre, genre.films gf"));
+        this.tables.addElement(
+                Arrays.asList("Tournage tournage", "PersonnelFilm personnel_film"));
+        this.tables.addElement(Arrays.asList("Tournage tournage", "tournage.filmActeurs film_acteur", "Acteur acteur",
+                "PersonnelFilm personnel_film"));
+
     }
 
     public String getInitialQuery() {
-        return "SELECT * FROM film";
-        //, film_pays_production, pays_production, "+ "film_genre, genre, tournage, realisateur, film_acteur, acteur, personnel_film";
+        return "";
+        // , film_pays_production, pays_production, "+ "film_genre, genre, tournage,
+        // realisateur, film_acteur, acteur, personnel_film";
     }
-    
+
     public Query compileFilter(Vector<SearchFilter> filters_list) throws SQLException {
         String query = this.getInitialQuery();
-        //Session uneSession = NewHibernateUtil.getSessionFactory().openSession();
+        // Session uneSession = NewHibernateUtil.getSessionFactory().openSession();
         if (filters_list.size() == 0) {
-            return uneSession.createSQLQuery(query);
+            return uneSession.createQuery(query);
         }
 
+        Set<String> tables_needed = new LinkedHashSet<>();
         query = query.concat(" WHERE ");
         Collections.sort(filters_list, Comparator.comparing(SearchFilter::getId));
-        
+
         Integer index = filters_list.get(0).getId();
+        tables_needed.addAll(this.tables.get(index));
         query = query.concat(this.filters.get(index));
-        query = query.replace("?", ":"+Integer.toString(0));
-        
+        // temporaire, le temps de faire fonctionner hibernate
+        query = query.replaceAll(":A", "'" + filters_list.get(0).getChoice() + "'");
+
         Integer prev = index;
-        for (int i = 1; i < filters_list.size() - 1; i++) {
+        for (int i = 1; i < filters_list.size(); i++) {
             index = filters_list.get(i).getId();
-            query = query.concat(this.filters.get(index));
-            query = query.replaceAll("?", ":"+Integer.toString(i));
             if (index == prev) {
                 query = query.concat(" OR ");
-            }
-            else{
+            } else {
                 prev = index;
+                tables_needed.addAll(this.tables.get(index));
                 query = query.concat(" AND ");
             }
-        }
-        index = filters_list.lastElement().getId();
-        query = query.concat(this.filters.get(index));
-        query = query.replace("?", ":"+Integer.toString(filters_list.size()-1));
-        
-        
-        Query statement = this.uneSession.createSQLQuery(query);
+            query = query.concat(this.filters.get(index));
+            // temporaire
+            query = query.replaceAll(":A", "'" + filters_list.get(0).getChoice() + "'");
 
-        //PreparedStatement statement = this.uneConnection.prepareStatement(query);
-
-        for (int i = 0; i < filters_list.size(); i++) {      
-            statement.setParameter(
-                    filters_list.get(i).getChoice(), ":"+Integer.toString(i));
-            //statement.setString(i+1, (filters_list.get(i)).getChoice());
         }
+
+        String query_tables = "FROM ";
+        for (String table : tables_needed) {
+            query_tables = query_tables + table + ", ";
+        }
+        query_tables = query_tables + "Film film";
+        String test = "select film " + query_tables + query;
+        Query statement = this.uneSession.createQuery(test);
+        // utilisé quand les problemes hibernate seront réglé
+        // for (int i = 0; i < filters_list.size(); i++) {
+        // statement.setString(i, (filters_list.get(i)).getChoice());
+        // }
         return statement;
     }
 
@@ -99,10 +114,10 @@ public class CourtierBDFilm {
     public void name(PreparedStatement statement) {
         Session uneSession = NewHibernateUtil.getSessionFactory().openSession();
         uneSession.beginTransaction();
-        
+
         List lesFilms = uneSession.createQuery(statement.toString()).list();
-        System.out.println( lesFilms.size() + " entées trouvés:" );
-        for ( Iterator iterFilms = lesFilms.iterator(); iterFilms.hasNext(); ) {
+        System.out.println(lesFilms.size() + " entées trouvés:" );
+        for (Iterator iterFilms = lesFilms.iterator(); iterFilms.hasNext();) {
             Film film = (Film) iterFilms.next();
             System.out.println("Film:" + film.getTitre());
         }
@@ -110,6 +125,4 @@ public class CourtierBDFilm {
         uneSession.close();
     }
 
-
-    
 }

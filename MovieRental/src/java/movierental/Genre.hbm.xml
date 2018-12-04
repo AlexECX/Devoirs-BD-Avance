@@ -12,7 +12,7 @@
             <key>
                 <column name="GENRE_NOM" length="10" not-null="true" />
             </key>
-            <many-to-many entity-name="movierental.Film">
+            <many-to-many class="movierental.Film">
                 <column name="FILM_ID" precision="22" scale="0" not-null="true" />
             </many-to-many>
         </set>
