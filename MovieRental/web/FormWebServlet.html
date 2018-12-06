@@ -12,96 +12,109 @@ and open the template in the editor.
     </head>
     <body>
         <form action = "FilmSearch" method = "GET">
-            <p>Entrer une chaıne de caracteres contenue dans le titre du film</p>
             <table>
                 <tr>
                     <td>Filtre par Titre: </td>
                     <td><input type = "text" name = "choix" required/></td>
                     <td><input type = "hidden" name = "filtre" value="0"/></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
                 </tr>
             </table>
-            <input type = "submit" value = "Soumettre" />
+
         </form>
+        
 
         <form action = "FilmSearch" method = "GET">
-            <p>Entrer période de parution</p>
             <table>
                 <tr>
                     <td>Filtre par Parution: </td>
-                </tr>
-                <tr>
-                    <td>De: <input type = "text" name = "choix" required pattern="[1-9]{4}" title="date format is YYYY"/></td>
-                </tr>
-                <tr>
-                    <td>Jusqu'à: <input type = "text" name = "choix2" required pattern="[1-9]{4}" title="date format is YYYY"/></td>
+                    <td>De: <input type = "text" name = "choix" required pattern="[0-9]{4}" title="date format is YYYY"/></td>
+                    <td>Jusqu'à: <input type = "text" name = "choix2" required pattern="[0-9]{4}" title="date format is YYYY"/></td>
                     <td><input type = "hidden" name = "filtre" value="1"/></td>
                     <td><input type = "hidden" name = "filtre2" value="2"/></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
                 </tr>
             </table>
-            <input type = "submit" value = "Soumettre" />
         </form>
 
         <form action = "FilmSearch" method = "GET">
-            <p>Entrer un Pays de production</p>
             <table>
                 <tr>
                     <td>Filtre par Pays de production: </td>
                     <td><input type = "text" name = "choix" required/></td>
                     <td><input type = "hidden" name = "filtre" value="3" /></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
                 </tr>
             </table>
-            <input type = "submit" value = "Soumettre" />
         </form>
 
         <form action = "FilmSearch" method = "GET">
-            <p>Entrer une langue</p>
             <table>
                 <tr>
                     <td>Filtre par langue original: </td>
                     <td><input type = "text" name = "choix" required/></td>
                     <td><input type = "hidden" name = "filtre" value="4" /></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
                 </tr>
             </table>
-            <input type = "submit" value = "Soumettre" />
         </form>
         
         <form action = "FilmSearch" method = "GET">
-            <p>Entrer un genre</p>
             <table>
                 <tr>
                     <td>Filtre par Genre: </td>
                     <td><input type = "text" name = "choix" required/></td>
                     <td><input type = "hidden" name = "filtre" value="5" /></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
                 </tr>
             </table>
-            <input type = "submit" value = "Soumettre" />
         </form>
 
         <form action = "FilmSearch" method = "GET">
-            <p>Entrer un nom de réalisateur</p>
             <table>
                 <tr>
-                    <td>Filtre par Réalisateur: </td>
+                    <td>Filtre par nom Réalisateur: </td>
                     <td><input type = "text" name = "choix" required/></td>
                     <td><input type = "hidden" name = "filtre" value="6" /></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
                 </tr>
             </table>
-            <input type = "submit" value = "Soumettre" />
         </form>
         
         <form action = "FilmSearch" method = "GET">
-            <p>Entrer un nom d'acteur</p>
             <table>
                 <tr>
-                    <td>Filtre par Acteur: </td>
+                    <td>Filtre par prenom Réalisateur: </td>
                     <td><input type = "text" name = "choix" required/></td>
-                    <td><input type = "hidden" name = "filtre" value="7" minimum="1"/></td>
+                    <td><input type = "hidden" name = "filtre" value="8" /></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
                 </tr>
             </table>
-            <input type = "submit" value = "Soumettre" />
+        </form>
+        
+        <form action = "FilmSearch" method = "GET">
+            <table>
+                <tr>
+                    <td>Filtre par nom Acteur: </td>
+                    <td><input type = "text" name = "choix" required/></td>
+                    <td><input type = "hidden" name = "filtre" value="7"/></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
+                </tr>
+            </table>
+        </form>
+        
+        <form action = "FilmSearch" method = "GET">
+            <table>
+                <tr>
+                    <td>Filtre par prenom Acteur: </td>
+                    <td><input type = "text" name = "choix" required/></td>
+                    <td><input type = "hidden" name = "filtre" value="9"/></td>
+                    <td><input type = "submit" value = "Soumettre" /></td>
+                </tr>
+            </table>
         </form>
 
-        <form action = "FilmSearch" method = "POST">
+        <form action = "FilmSearch" method = "POST" >
             <input type = "submit" value = "Rechercher" />
         </form>
     </body>

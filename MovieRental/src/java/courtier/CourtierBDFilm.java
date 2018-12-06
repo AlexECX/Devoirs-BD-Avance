@@ -30,11 +30,11 @@ public class CourtierBDFilm {
     // Constructeur pour connexion passée par le créateur
     public CourtierBDFilm(Session laConnection) {
         this.uneSession = laConnection;
-        this.filters.addElement("film.titre = ':A'");
+        this.filters.addElement("film.titre like '%:A%'");
         this.filters.addElement("film.anneeSortie > to_date(':A', 'yyyy')");
         this.filters.addElement("film.anneeSortie < to_date(':A', 'yyyy')");
         this.filters.addElement("film.id = ppf.id " + "AND pays_production.nom = ':A'");
-        this.filters.addElement("film.langueOriginal = ':A'");
+        this.filters.addElement("film.langueOriginale = ':A'");
         this.filters.addElement("film.id = gf.id " + "AND genre.nom = ':A'");
         this.filters.addElement("film.id = tournage.filmId " + "AND tournage.realisateur.id = personnel_film.id " 
                 + "AND personnel_film.nom = ':A'");

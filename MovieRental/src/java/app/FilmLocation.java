@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Valentin
  */
+@WebServlet(name = "FilmLocation", urlPatterns = {"/FilmLocation"})
 public class FilmLocation extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

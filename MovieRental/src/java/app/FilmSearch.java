@@ -26,6 +26,7 @@ import java.util.Vector;
 import courtier.CourtierBDFilm;
 import courtier.SearchFilter;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import movierental.Film;
 import movierental.NewHibernateUtil;
 import movierental.PaysProduction;
@@ -120,47 +121,18 @@ public class FilmSearch extends HttpServlet {
         PreparedStatement ps = null;
         PrintWriter out = response.getWriter();
         try {
-        // Recuperer le parametre provenant de la page HTML d’entree chaineRecherche = requete.getParameter("chaineRecherche");
-
-            // Ouvrir une connexion en passant par un DataSource
-            //Context initContext = new InitialContext();
-            //Context envContext = (Context) initContext.lookup("java:/comp/env"); 
-            //OracleDataSource ds = (OracleDataSource) envContext.lookup("jdbc/webpvideo");
-            //conn = ds.getConnection();
-            //Class.forName ("oracle.jdbc.driver.OracleDriver");
-            
-            // conn = DriverManager.getConnection(
-            //         "jdbc:oracle:thin:@localhost:1521:XE",
-            //         "MAIN",
-            //         "main");
-            // // Creer une requete au serveur BD
-            //chaineRecherche = request.getParameter("chaineRecherche");
             Vector<SearchFilter> filters = new Vector<>();
             filters.addAll(this.searchFilters);
             this.searchFilters.clear();
             
             Session connH = NewHibernateUtil.getSessionFactory().openSession();
-            //Criteria cr = connH.createCriteria(Film.class);
-            //cr.add(Restrictions.like("titre", chaineRecherche));
-            //List rs = cr.list();
-            //String hql = "from PaysProduction p, p.films f";
-            //Query query = connH.createQuery(hql);//.setParameter("A", "Intouchable");
-            //Query query2 = query.setString(0, "Intouchable");
-                    //.setString(0, "Intouchable");
-            //List rs = query.list();
 
-            
-            
-            //if (chaineRecherche.compareTo("") != 0)
-            //    filters.addElement(new SearchFilter(5, chaineRecherche));
             if (filters.isEmpty()){
                 filters.addElement(new SearchFilter(0, ""));
             }
             CourtierBDFilm cf = new CourtierBDFilm(connH);
             List rs = cf.compileFilter(filters).list();
 
-            //ps.setString(1,"%" + chaineRecherche + "%");
-            // Decoder les resultats
             
             response.setContentType("text/html;charset=UTF-8");
             out.println("<!DOCTYPE html>");
@@ -175,10 +147,15 @@ public class FilmSearch extends HttpServlet {
                 out.println("<p>Results: "+Integer.toString(rs.size())+ " entrées</p>");
                 for (Object film : rs) {
                     Film f = (Film)film;
-                    out.println(
-                        "<p>"+f.getTitre()+
-                        " ("+f.getAnneeSortie().toString().substring(0, 4)+")</p>"
-                    );
+                    out.println();
+                    out.println("<form action = \"FilmLocation\" method = \"post\">");
+                    out.println("<table><tr><td>"
+                            + "<p>"+f.getTitre()+" ("+f.getAnneeSortie().toString().substring(0, 4)+") </p>"
+                            + "</td>");
+                    out.println("<td><input type = \"hidden\" name = \"idFilm\" value=\""+f.getId().toString()+"\"/></td>");
+                    out.println("<td><input type = \"submit\" value = \"Louer\" /></td>");
+                    out.println("</tr></table>");
+                    out.println("</form>");
                 }
             }
             out.println("</body>");
