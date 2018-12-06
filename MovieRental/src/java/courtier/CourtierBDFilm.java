@@ -34,13 +34,18 @@ public class CourtierBDFilm {
         this.filters.addElement("film.anneeSortie > to_date(':A', 'yyyy')");
         this.filters.addElement("film.anneeSortie < to_date(':A', 'yyyy')");
         this.filters.addElement("film.id = ppf.id " + "AND pays_production.nom = ':A'");
-        this.filters.addElement("film.langueOriginale = ':A'");
-        this.filters.addElement("film.id = gf.id " + "AND genre.nom = ':A'");
+        this.filters.addElement("film.langueOriginale like '%:A%'");
+        this.filters.addElement("film.id = gf.id " + "AND genre.nom like '%:A%'");
         this.filters.addElement("film.id = tournage.filmId " + "AND tournage.realisateur.id = personnel_film.id " 
                 + "AND personnel_film.nom = ':A'");
         this.filters.addElement("film.id = tournage.filmId " + "AND tournage.filmId = film_acteur.id.filmId "
                 + "AND film_acteur.id.acteurId = acteur.id " + "AND acteur.id = personnel_film.id " 
                 + "AND personnel_film.nom = ':A'");
+        this.filters.addElement("film.id = tournage.filmId " + "AND tournage.realisateur.id = personnel_film.id " 
+                + "AND personnel_film.prenom = ':A'");
+        this.filters.addElement("film.id = tournage.filmId " + "AND tournage.filmId = film_acteur.id.filmId "
+                + "AND film_acteur.id.acteurId = acteur.id " + "AND acteur.id = personnel_film.id " 
+                + "AND personnel_film.prenom = ':A'");
 
         this.tables.addElement(Arrays.asList());
         this.tables.addElement(Arrays.asList());
@@ -49,6 +54,9 @@ public class CourtierBDFilm {
                 Arrays.asList("PaysProduction pays_production", "pays_production.films ppf"));
         this.tables.addElement(Arrays.asList());
         this.tables.addElement(Arrays.asList("Genre genre, genre.films gf"));
+        this.tables.addElement(Arrays.asList("Tournage tournage", "PersonnelFilm personnel_film"));
+        this.tables.addElement(Arrays.asList("Tournage tournage", "tournage.filmActeurs film_acteur",
+                "Acteur acteur", "PersonnelFilm personnel_film"));
         this.tables.addElement(Arrays.asList("Tournage tournage", "PersonnelFilm personnel_film"));
         this.tables.addElement(Arrays.asList("Tournage tournage", "tournage.filmActeurs film_acteur",
                 "Acteur acteur", "PersonnelFilm personnel_film"));
@@ -108,8 +116,8 @@ public class CourtierBDFilm {
         return statement;
     }
 
-    public List search(Query filter) throws SQLException {
-        return filter.list();
+    public List search(Vector<SearchFilter> filters_list) throws SQLException {
+        return this.compileFilter(filters_list).list();
     }
 
     public void name(PreparedStatement statement) {

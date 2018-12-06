@@ -39,7 +39,6 @@ CREATE TABLE main.tournage
     film_id INT NOT NULL REFERENCES main.film(id),
     PRIMARY KEY(film_id),
     realisateur_id INT NOT NULL REFERENCES main.realisateur(id)
-
 );
 
 

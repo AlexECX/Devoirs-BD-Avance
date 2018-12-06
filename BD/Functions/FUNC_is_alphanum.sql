@@ -8,3 +8,4 @@ BEGIN
         RETURN 'TRUE';
     END IF;
 END;
+/

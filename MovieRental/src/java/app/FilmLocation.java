@@ -82,9 +82,6 @@ public class FilmLocation extends HttpServlet {
                     "main");
             // Creer une requete au serveur BD
             chaineRecherche = request.getParameter("idFilm");
-            Vector<SearchFilter> filters = new Vector<>();
-            if (chaineRecherche.compareTo("") != 0)
-                filters.addElement(new SearchFilter(2, chaineRecherche));
             CourtierBDPret cf = new CourtierBDPret(conn);
             HttpSession session = request.getSession(false);
             Object userId = session.getAttribute("idUser");

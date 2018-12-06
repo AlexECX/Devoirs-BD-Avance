@@ -12,3 +12,4 @@ procedure main.create_acteur(
 begin
     ligne := main.fcreate_acteur(nom, prenom, date_naissance, lieu_naissance, biographie);
 end;
+/

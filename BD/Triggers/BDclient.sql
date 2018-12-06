@@ -16,3 +16,4 @@ CREATE OR REPLACE TRIGGER main.BDclient
                     ); 
         END IF;
 END;
+/

@@ -9,43 +9,6 @@
         <servlet-class>app.ConnectionUser</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-<<<<<<< Updated upstream
-=======
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-<<<<<<< Updated upstream
-=======
-    <servlet>
-        <servlet-name>FilmSearch</servlet-name>
-        <servlet-class>app.FilmSearch</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FilmSearch</servlet-name>
-        <url-pattern>/FilmSearch</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ConnectionUser</servlet-name>
-        <servlet-class>app.ConnectionUser</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ConnectionUser</servlet-name>
-        <url-pattern>/ConnectionUser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>FilmLocation</servlet-name>
-        <servlet-class>app.FilmLocation</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FilmLocation</servlet-name>
-        <url-pattern>/FilmLocation</url-pattern>
-    </servlet-mapping>
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     <session-config>
         <session-timeout>
             30
