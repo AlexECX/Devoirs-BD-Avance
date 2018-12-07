@@ -132,12 +132,13 @@ public class FilmSearch extends HttpServlet {
             if (filters.isEmpty()){
                 filters.addElement(new SearchFilter(0, ""));
             }
+            
+            CourtierBDFilm cf = new CourtierBDFilm(connH);
+            List rs = cf.search(filters);
             Connection conn = DriverManager.getConnection(
                     "jdbc:oracle:thin:@localhost:1521:XE",
                     "MAIN",
                     "main");
-            CourtierBDFilm cf = new CourtierBDFilm(connH);
-            List rs = cf.search(filters);
             CourtierBDPret cp = new CourtierBDPret(conn);
 
             
@@ -157,7 +158,9 @@ public class FilmSearch extends HttpServlet {
                     out.println();
                     out.println("<form action = \"FilmLocation\" method = \"post\">");
                     out.println("<table><tr><td>"
-                            + "<p>"+f.getTitre()+" ("+f.getAnneeSortie().toString().substring(0, 4)+") </p>"
+                            + "<p>" + "<a href=\"FilmDetail?film_id="+f.getId()+"\">"
+                            + ""+f.getTitre()+" ("+f.getAnneeSortie().toString().substring(0, 4)+") "
+                            + "</a></p>"
                             + "</td>");
                     List rp = cp.getAvailable(f, connH);
                     if (!rp.isEmpty()){
