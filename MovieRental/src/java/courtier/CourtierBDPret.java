@@ -10,9 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
+import movierental.Film;
 import movierental.NewHibernateUtil;
 import movierental.PretCourant;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -33,5 +39,12 @@ public class CourtierBDPret {
         PreparedStatement louerFilm = connectionUser.prepareStatement("INSERT INTO pret_courant(profile_id, film_id, date_pret, date_retour, etat_pret) VALUES (" + idClient + "," + idFilm + ", CURRENT_DATE, CURRENT_DATE +" + dureeAjoutee + ", 'prete')");
         louerFilm.executeUpdate();
         return true;
+    }
+    
+    public List getAvailable(Film film, Session session)throws SQLException{
+        Query query = session.createQuery("SELECT fc.id FROM PretCourant pc right join pc.filmCopie fc WHERE pc.id IS NULL AND fc.film.id = "+film.getId().toString());
+        //PreparedStatement query = connectionUser.prepareStatement("SELECT * FROM film_copie, pret_courant WHERE film_copie.film_id = "+film.getId().toString()+" AND pret_courant.film_id != film_copie.film_id");
+        return query.list();    
+
     }
 }

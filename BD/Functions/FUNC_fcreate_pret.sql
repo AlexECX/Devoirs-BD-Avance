@@ -25,3 +25,4 @@ begin
     WHERE main.pret_courant.id = f_id;
     RETURN ligne;
 end;
+/

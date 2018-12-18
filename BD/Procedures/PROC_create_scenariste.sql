@@ -12,3 +12,4 @@ procedure main.create_scenariste(
 begin
     ligne := main.fcreate_scenariste(nom, prenom, date_naissance, lieu_naissance, biographie);
 end;
+/

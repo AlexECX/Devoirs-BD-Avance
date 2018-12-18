@@ -68,5 +68,6 @@ DROP TABLE main.personnel_film;
 
 -- initialise
 @data.sql
+commit;
 
 

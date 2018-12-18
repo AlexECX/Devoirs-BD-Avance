@@ -45,6 +45,14 @@ begin
     INSERT INTO main.film_acteur(acteur_id, film_id, nom_personnage)
     VALUES (ligne_acteur.id, ligne_film.id, 'Larry');
 
+    --copies--
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+
 end;
 /
 
@@ -74,6 +82,14 @@ begin
     
     INSERT INTO main.film_acteur(acteur_id, film_id, nom_personnage)
     VALUES (ligne_acteur.id, ligne_film.id, 'Larry');
+
+    --copies--
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
 
 end;
 /
@@ -106,6 +122,14 @@ begin
     INSERT INTO main.film_acteur(acteur_id, film_id, nom_personnage)
     VALUES (ligne_acteur.id, ligne_film.id, 'Larry');
 
+    --copies--
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+
 end;
 /
 
@@ -136,6 +160,14 @@ begin
     INSERT INTO main.film_acteur(acteur_id, film_id, nom_personnage)
     VALUES (ligne_acteur.id, ligne_film.id, 'Larry');
 
+    --copies--
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+
 end;
 /
 
@@ -165,6 +197,14 @@ begin
     
     INSERT INTO main.film_acteur(acteur_id, film_id, nom_personnage)
     VALUES (ligne_acteur.id, ligne_film.id, 'Larry');
+
+    --copies--
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
+    insert into main.film_copie (film_id)
+    values (ligne_film.id);
 
 end;
 /
@@ -249,4 +289,3 @@ begin
     main.create_membre(ligne_profile.id, ligne_adresse.id, 'Avance');
 end;
 /
-

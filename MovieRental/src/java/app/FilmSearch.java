@@ -24,7 +24,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 import courtier.CourtierBDFilm;
+import courtier.CourtierBDPret;
 import courtier.SearchFilter;
+import java.sql.Connection;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import movierental.Film;
@@ -130,8 +132,14 @@ public class FilmSearch extends HttpServlet {
             if (filters.isEmpty()){
                 filters.addElement(new SearchFilter(0, ""));
             }
+            
             CourtierBDFilm cf = new CourtierBDFilm(connH);
-            List rs = cf.compileFilter(filters).list();
+            List rs = cf.search(filters);
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:oracle:thin:@localhost:1521:XE",
+                    "MAIN",
+                    "main");
+            CourtierBDPret cp = new CourtierBDPret(conn);
 
             
             response.setContentType("text/html;charset=UTF-8");
@@ -150,10 +158,17 @@ public class FilmSearch extends HttpServlet {
                     out.println();
                     out.println("<form action = \"FilmLocation\" method = \"post\">");
                     out.println("<table><tr><td>"
-                            + "<p>"+f.getTitre()+" ("+f.getAnneeSortie().toString().substring(0, 4)+") </p>"
+                            + "<p>" + "<a href=\"FilmDetail?film_id="+f.getId()+"\">"
+                            + ""+f.getTitre()+" ("+f.getAnneeSortie().toString().substring(0, 4)+") "
+                            + "</a></p>"
                             + "</td>");
-                    out.println("<td><input type = \"hidden\" name = \"idFilm\" value=\""+f.getId().toString()+"\"/></td>");
-                    out.println("<td><input type = \"submit\" value = \"Louer\" /></td>");
+                    List rp = cp.getAvailable(f, connH);
+                    if (!rp.isEmpty()){
+                        out.println("<td><input type = \"hidden\" name = \"idFilm\" value=\""+rp.get(0).toString()+"\"/></td>");
+                        out.println("<td><input type = \"submit\" value = \"Louer\" /></td>");
+                    }
+                    
+                    out.println("<td>Inventaire: "+Integer.toString(rp.size())+"</td>");
                     out.println("</tr></table>");
                     out.println("</form>");
                 }

@@ -9,3 +9,4 @@ CREATE OR REPLACE TRIGGER main.BIUmdp_5alphanum
                 );            
         END IF;
 	END;
+    /

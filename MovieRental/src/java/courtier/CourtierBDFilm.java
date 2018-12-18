@@ -16,6 +16,7 @@ import java.util.Vector;
 
 import movierental.Film;
 import movierental.NewHibernateUtil;
+import movierental.PersonnelFilm;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -34,24 +35,31 @@ public class CourtierBDFilm {
         this.filters.addElement("film.anneeSortie > to_date(':A', 'yyyy')");
         this.filters.addElement("film.anneeSortie < to_date(':A', 'yyyy')");
         this.filters.addElement("film.id = ppf.id " + "AND pays_production.nom = ':A'");
-        this.filters.addElement("film.langueOriginale = ':A'");
-        this.filters.addElement("film.id = gf.id " + "AND genre.nom = ':A'");
-        this.filters.addElement("film.id = tournage.filmId " + "AND tournage.realisateur.id = personnel_film.id " 
+        this.filters.addElement("film.langueOriginale like '%:A%'");
+        this.filters.addElement("film.id = gf.id " + "AND genre.nom like '%:A%'");
+        this.filters.addElement("film.id = tournage.filmId " + "AND tournage.realisateur.id = personnel_film.id "
                 + "AND personnel_film.nom = ':A'");
         this.filters.addElement("film.id = tournage.filmId " + "AND tournage.filmId = film_acteur.id.filmId "
-                + "AND film_acteur.id.acteurId = acteur.id " + "AND acteur.id = personnel_film.id " 
+                + "AND film_acteur.id.acteurId = acteur.id " + "AND acteur.id = personnel_film.id "
                 + "AND personnel_film.nom = ':A'");
+        this.filters.addElement("film.id = tournage.filmId " + "AND tournage.realisateur.id = personnel_film.id "
+                + "AND personnel_film.prenom = ':A'");
+        this.filters.addElement("film.id = tournage.filmId " + "AND tournage.filmId = film_acteur.id.filmId "
+                + "AND film_acteur.id.acteurId = acteur.id " + "AND acteur.id = personnel_film.id "
+                + "AND personnel_film.prenom = ':A'");
 
         this.tables.addElement(Arrays.asList());
         this.tables.addElement(Arrays.asList());
         this.tables.addElement(Arrays.asList());
-        this.tables.addElement(
-                Arrays.asList("PaysProduction pays_production", "pays_production.films ppf"));
+        this.tables.addElement(Arrays.asList("PaysProduction pays_production", "pays_production.films ppf"));
         this.tables.addElement(Arrays.asList());
         this.tables.addElement(Arrays.asList("Genre genre, genre.films gf"));
         this.tables.addElement(Arrays.asList("Tournage tournage", "PersonnelFilm personnel_film"));
-        this.tables.addElement(Arrays.asList("Tournage tournage", "tournage.filmActeurs film_acteur",
-                "Acteur acteur", "PersonnelFilm personnel_film"));
+        this.tables.addElement(Arrays.asList("Tournage tournage", "tournage.filmActeurs film_acteur", "Acteur acteur",
+                "PersonnelFilm personnel_film"));
+        this.tables.addElement(Arrays.asList("Tournage tournage", "PersonnelFilm personnel_film"));
+        this.tables.addElement(Arrays.asList("Tournage tournage", "tournage.filmActeurs film_acteur", "Acteur acteur",
+                "PersonnelFilm personnel_film"));
 
     }
 
@@ -108,8 +116,28 @@ public class CourtierBDFilm {
         return statement;
     }
 
-    public List search(Query filter) throws SQLException {
-        return filter.list();
+    public List search(Vector<SearchFilter> filters_list) throws SQLException {
+        return this.compileFilter(filters_list).list();
+    }
+
+    public Film filmDetail(Integer film_id) {
+        Query query = this.uneSession.createQuery("FROM Film film WHERE film.id = "+Integer.toString(film_id));
+        List rs = query.list();
+        if (rs.isEmpty()){
+           return null;
+        } else {
+            return (Film)rs.get(0);
+        }
+    }
+    
+    public PersonnelFilm persFilmDetail(Integer pers_id){
+        Query query = this.uneSession.createQuery("FROM PersonnelFilm p WHERE p.id = "+Integer.toString(pers_id));
+        List rs = query.list();
+        if (rs.isEmpty()){
+           return null;
+        } else {
+            return (PersonnelFilm)rs.get(0);
+        }
     }
 
     public void name(PreparedStatement statement) {

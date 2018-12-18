@@ -23,3 +23,4 @@ begin
     values (numero, type_carte, expiration, CVV, profile_id);
     RETURN ligne;
 end;
+/

@@ -17,3 +17,4 @@ CREATE OR REPLACE TRIGGER main.BIUetat_pret
             END IF;
 		END IF;
 	END;
+    /
